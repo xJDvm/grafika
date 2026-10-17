@@ -1,0 +1,210 @@
+{
+  "categories": [
+    {
+      "id": "illustrator",
+      "title": "Illustrator",
+      "subtitle": "",
+      "color": "orange"
+    },
+    {
+      "id": "tipografia",
+      "title": "Tipografía",
+      "subtitle": "",
+      "color": "purple"
+    },
+    {
+      "id": "color",
+      "title": "Color",
+      "subtitle": "",
+      "color": "green"
+    },
+    {
+      "id": "impresion",
+      "title": "Impresión",
+      "subtitle": "",
+      "color": "sky"
+    },
+    {
+      "id": "identidad-visual",
+      "title": "Identidad visual",
+      "subtitle": "",
+      "color": "pink"
+    },
+    {
+      "id": "ilustracion",
+      "title": "Ilustración",
+      "subtitle": "",
+      "color": "yellow"
+    },
+    {
+      "id": "editorial",
+      "title": "Editorial",
+      "subtitle": "",
+      "color": "mint"
+    },
+    {
+      "id": "packaging",
+      "title": "Packaging",
+      "subtitle": "",
+      "color": "blue"
+    }
+  ],
+  "articles": [
+    {
+      "slug": "fundamentos-adobe-illustrator",
+      "category": "illustrator",
+      "title": "Fundamentos de Adobe Illustrator",
+      "subtitle": "Primera clase: conceptos, interfaz y herramientas esenciales",
+      "summary": "Conoce el diseño vectorial, recorre la interfaz de Illustrator y aprende a trabajar con formas, color, capas y atajos básicos.",
+      "label": "Guía · Clase 1",
+      "sourcePages": "1–4",
+      "file": "articles/fundamentos-adobe-illustrator.md",
+      "tags": [
+        "Illustrator",
+        "diseño vectorial",
+        "principios",
+        "qué es Adobe Illustrator"
+      ],
+      "source": "Material de clase · páginas 1–4",
+      "sourceNote": "Resumen didáctico basado en la primera clase del PDF compartido (páginas 1–4)."
+    },
+    {
+      "slug": "aspectos-basicos-illustrator",
+      "category": "illustrator",
+      "title": "Aspectos básicos de Illustrator",
+      "subtitle": "Tercera clase: dibujo, apariencia y composición",
+      "summary": "Explora pinceles, lápiz, pluma, trazos, degradados, máscaras, texto, guías y cuadrículas con pasos prácticos.",
+      "label": "Guía · Clase 3",
+      "sourcePages": "5–16",
+      "file": "articles/aspectos-basicos-illustrator.md",
+      "tags": [
+        "Illustrator",
+        "herramientas",
+        "composición"
+      ],
+      "source": "Material de clase · páginas 5–16",
+      "sourceNote": "Resumen didáctico basado en la tercera clase del PDF compartido (páginas 5–16)."
+    },
+    {
+      "slug": "poder-tipografia-marca",
+      "category": "tipografia",
+      "title": "El poder de la tipografía en la marca",
+      "subtitle": "Segunda clase: anatomía, clasificación y psicología tipográfica",
+      "summary": "Recorre la anatomía de la letra, la clasificación de fuentes (serif, sans serif, script, display), la psicología tipográfica y las reglas para combinar fuentes y crear jerarquía.",
+      "label": "Guía · Clase 2",
+      "source": "Material de clase · PDF compartido (clase de Tipografía)",
+      "file": "articles/poder-tipografia-marca.md",
+      "sourceNote": "Resumen didáctico basado en la clase de Tipografía del PDF compartido.",
+      "tags": [
+        "tipografía",
+        "fuentes",
+        "serif",
+        "sans serif",
+        "jerarquía tipográfica",
+        "anatomía tipográfica"
+      ]
+    },
+    {
+      "slug": "psicologia-del-color",
+      "category": "color",
+      "title": "Psicología del color",
+      "subtitle": "Modelos de color, significados y paletas de marca",
+      "summary": "Explica los modelos RGB, CMYK y Pantone, el significado emocional de cada color y cómo construir paletas armónicas y estratégicas para una marca.",
+      "label": "Guía · Color",
+      "source": "Material de clase · PDF compartido (clase de Color)",
+      "file": "articles/psicologia-del-color.md",
+      "sourceNote": "Resumen didáctico basado en la clase de Color del PDF compartido.",
+      "tags": [
+        "color",
+        "RGB",
+        "CMYK",
+        "Pantone",
+        "paleta de marca",
+        "psicología del color",
+        "armonías de color"
+      ]
+    },
+    {
+      "slug": "fundamentos-diseno-impresion",
+      "category": "impresion",
+      "title": "Fundamentos del diseño para impresión",
+      "subtitle": "Cuarta clase: color, técnicas, pre-prensa y piezas impresas",
+      "summary": "Cubre los modos de color y tintas planas, las técnicas de impresión, la pre-prensa (sangrado, márgenes, resolución, líneas de corte) y el diseño de folletos, carteles y catálogos.",
+      "label": "Guía · Clase 4",
+      "source": "Material de clase · PDF compartido (clase de Impresión)",
+      "file": "articles/fundamentos-diseno-impresion.md",
+      "sourceNote": "Resumen didáctico basado en la clase de Impresión del PDF compartido.",
+      "tags": [
+        "impresión",
+        "CMYK",
+        "tintas planas",
+        "pre-prensa",
+        "sangrado",
+        "offset",
+        "serigrafía",
+        "folletos",
+        "catálogos"
+      ]
+    },
+    {
+      "slug": "ilustracion-digital-fusion-medios",
+      "category": "ilustracion",
+      "title": "Ilustración digital y fusión de medios",
+      "subtitle": "Software, herramientas básicas y proceso de análogo a digital",
+      "summary": "Introduce la ilustración digital y la fusión de medios, el software más usado, las herramientas básicas (pinceles, capas, modos de fusión, máscaras) y el proceso de llevar un boceto tradicional a digital.",
+      "label": "Guía · Ilustración",
+      "source": "Material de clase · PDF compartido (clase de Ilustración)",
+      "file": "articles/ilustracion-digital-fusion-medios.md",
+      "sourceNote": "Resumen didáctico basado en la clase de Ilustración del PDF compartido.",
+      "tags": [
+        "ilustración",
+        "ilustración digital",
+        "fusión de medios",
+        "Photoshop",
+        "Procreate",
+        "capas",
+        "pinceles"
+      ]
+    },
+    {
+      "slug": "packaging-envase-etiquetas",
+      "category": "packaging",
+      "title": "Packaging: envase, etiquetas y empaque",
+      "subtitle": "Niveles, materiales, sostenibilidad y elementos obligatorios",
+      "summary": "Define el packaging y sus niveles, el diseño de etiquetas y empaques, el troquelado, la psicología del envase, los materiales y la sostenibilidad, y los elementos obligatorios por categoría de producto.",
+      "label": "Guía · Packaging",
+      "source": "Material de clase · PDF compartido (clase de Packaging)",
+      "file": "articles/packaging-envase-etiquetas.md",
+      "sourceNote": "Resumen didáctico basado en la clase de Packaging del PDF compartido.",
+      "tags": [
+        "packaging",
+        "envase",
+        "etiquetas",
+        "empaque",
+        "troquelado",
+        "materiales",
+        "sostenibilidad",
+        "branding"
+      ]
+    },
+    {
+      "slug": "fundamentos-identidad-visual",
+      "category": "identidad-visual",
+      "title": "Fundamentos de la identidad visual",
+      "subtitle": "Primera clase: componentes, logotipos y manual de marca",
+      "summary": "La identidad visual reúne los elementos gráficos que representan una marca y permiten reconocerla y diferenciarla.",
+      "label": "Clase 1",
+      "source": "Material de clase · Información de Grafika.docx",
+      "file": "articles/fundamentos-identidad-visual.md",
+      "tags": [
+        "identidad visual",
+        "logotipo",
+        "isotipo",
+        "imagotipo",
+        "isologo",
+        "manual de marca",
+        "aplicaciones"
+      ]
+    }
+  ]
+}

@@ -5,108 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f4f3ee" />
     <meta name="description" content="Grafika: orientación académica y recursos para estudiantes de Diseño Gráfico." />
-    <title>Grafika — Interfaz web académica</title>
+    <title>Grafika — Recursos de Diseño Gráfico</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=15" />
+    <script src="app.js?v=13" defer></script>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#home" aria-label="Grafika, ir a Home"><span>GRAF!KA</span></a>
-      <nav class="main-nav" aria-label="Navegación principal">
-        <a class="nav-link is-active" href="#home" data-view="home">Home</a>
-        <a class="nav-link" href="#info" data-view="info">Info</a>
-        <a class="nav-link" href="#tutoriales" data-scroll="tutoriales">Tutoriales</a>
-        <a class="nav-link" href="#tutoriales" data-scroll="tutoriales">Support</a>
+      <a class="brand" href="#inicio" aria-label="Grafika, ir al inicio"><span>GRAF!KA</span></a>
+      <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+        <a class="nav-link" href="#inicio" data-nav="inicio">Inicio</a>
+        <a class="nav-link" href="#info" data-nav="info">Info</a>
+        <a class="nav-link" href="#tutoriales" data-nav="tutoriales">Tutoriales</a>
+        <a class="nav-link" href="#soporte" data-nav="soporte">Soporte</a>
       </nav>
-      <button class="icon-button search-toggle" type="button" aria-label="Buscar" title="Buscar">
+      <button class="icon-button search-toggle" type="button" aria-label="Buscar en Grafika" title="Buscar">
         <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="13.5" cy="13.5" r="9"/><path d="m20.5 20.5 7 7"/></svg>
       </button>
-      <button class="profile-button" type="button" aria-label="Perfil" title="Perfil"><span class="profile-head"></span><span class="profile-body"></span></button>
+      <button class="icon-button account-button" type="button" aria-label="Cuenta" title="Cuenta">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="11" r="5"/><path d="M6 27c0-5.5 4.5-9 10-9s10 3.5 10 9"/></svg>
+      </button>
     </header>
 
-    <main>
-      <section class="view view-home is-visible" id="home" aria-labelledby="home-title">
-        <div class="hero home-hero">
-          <div class="hero-copy">
-            <p class="eyebrow">Hola, bienvenido a</p>
-            <h1 id="home-title" class="hero-wordmark">GRAF!KA</h1>
-            <p class="hero-description">Un espacio de orientación académica para estudiantes<br class="wide-only" /> de Artes Mención Diseño Gráfico</p>
-            <form class="search-form" role="search">
-              <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="13.5" cy="13.5" r="9"/><path d="m20.5 20.5 7 7"/></svg>
-              <input id="resource-search" type="search" placeholder="Buscar información, temas, recursos..." aria-label="Buscar recursos" />
-            </form>
-          </div>
-          <div class="hero-art" aria-hidden="true">
-            <span class="art-orbit"></span>
-            <div class="art-grid">
-              <span class="tile tile-blue"><i class="spinner"></i></span>
-              <span class="tile tile-sky"></span>
-              <span class="tile tile-pink"></span>
-              <span class="tile tile-mint"><i></i><i></i><i></i><i></i></span>
-              <span class="tile tile-shape"><i></i></span>
-              <span class="tile tile-orange"></span>
-            </div>
-          </div>
-        </div>
+    <main id="main-content" tabindex="-1"><div id="app" aria-live="polite" aria-busy="true"></div></main>
 
-        <section class="resource-section" id="tutoriales" aria-label="Recursos académicos">
-          <div class="resource-grid">
-            <a class="resource-card card-purple" href="#info" data-view="info" data-search="recursos diseño recursos directos">
-              <span class="card-icon icon-pencil" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="m12 31 4-13 16-8 9 9-8 16-13 4-8-8Zm5-12 12 12m-8-16 14 14M9 39l7-2"/><path d="m20 36 8-8"/></svg></span>
-              <strong>Recursos de Diseño</strong>
-              <span class="card-copy">Ten accesos directos<br /> a recursos de<br /> utilidad.</span>
-              <span class="card-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="resource-card card-orange" href="#info" data-view="info" data-search="glosario académico conceptos diseño">
-              <span class="card-icon icon-book" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M12 11h16a7 7 0 0 1 7 7v21H18a6 6 0 0 0-6 4V11Zm23 6h4v23h-4M17 17v16m5-16v16m6-14v14"/></svg></span>
-              <strong>Glosario Académico</strong>
-              <span class="card-copy">Consulta conceptos<br /> referentes al Diseño.</span>
-              <span class="card-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="resource-card card-cyan" href="#info" data-view="info" data-search="formatos especificaciones entrega trabajos tutoriales">
-              <span class="card-icon icon-document" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M17 12h17v29H14V16h3m-3 5h15m-15 6h15m-15 6h10M12 10h20M24 6l-4 4 4 4M36 18l4 4-4 4"/></svg></span>
-              <strong>Formatos y<br /> Especificaciones<br /> de Entrega</strong>
-              <span class="card-copy">Domina los parámetros estándar requeridos en la entrega de trabajos.</span>
-              <span class="card-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="resource-card card-featured" href="#info" data-view="info" data-search="destacado plan estudios carrera diseño gráfico">
-              <span class="featured-art" aria-hidden="true"><i></i><b></b></span>
-              <strong>Destacado</strong>
-              <span class="card-copy">Conoce el plan de estudios de la carrera Artes Mención Diseño Gráfico</span>
-              <span class="explore">Explorar&nbsp; →</span>
-            </a>
-          </div>
-          <p class="empty-search" hidden>No encontramos recursos con ese término.</p>
-        </section>
-      </section>
-
-      <section class="view view-info" id="info" aria-labelledby="info-title" hidden>
-        <div class="hero info-hero">
-          <div class="hero-copy">
-            <p class="eyebrow" id="info-title">¿Qué es</p>
-            <h1 class="hero-wordmark">GRAF!KA<span class="question-mark">?</span></h1>
-            <p class="hero-description">Una plataforma web académica creada para orientar y acompañar a los estudiantes de Artes Mención Diseño Gráfico de la Universidad Arturo Michelena.</p>
-          </div>
-          <div class="info-art" aria-hidden="true"><span class="art-circle"></span><div class="art-grid"><span class="tile tile-mint"><i></i></span><span class="tile tile-orange"></span><span class="tile tile-blue"><i class="spinner"></i></span><span class="tile tile-sky"></span></div></div>
-        </div>
-        <section class="info-section" aria-label="Propósito de Grafika">
-          <div class="info-points">
-            <article><span class="point-mark mark-blue">✓</span><p><strong>Información confiable</strong><br />y actualizada</p></article>
-            <article><span class="point-mark mark-orange">▤</span><p><strong>Recursos prácticos</strong><br />y académicos</p></article>
-            <article><span class="point-mark mark-cyan">⌘</span><p><strong>Herramientas Digitales</strong><br />y tutoriales</p></article>
-            <article><span class="point-mark mark-green">↗</span><p><strong>Orientación en tu</strong><br />carrera</p></article>
-          </div>
-          <article class="purpose-card"><h2>Nuestro propósito</h2><p>Brindar un espacio accesible, organizado y amigable que conecte a los estudiantes con la información plenamente en su carrera.</p></article>
-        </section>
-      </section>
-    </main>
     <div class="search-overlay" hidden>
-      <label for="overlay-search">¿Qué estás buscando?</label>
-      <input id="overlay-search" type="search" placeholder="Escribe un tema o recurso..." />
-      <button type="button" class="close-search" aria-label="Cerrar búsqueda">×</button>
+      <form class="global-search" role="search">
+        <label for="global-search-input">Buscar artículos, temas y recursos</label>
+        <div class="search-row">
+          <input id="global-search-input" type="search" placeholder="Escribe una palabra clave…" />
+          <button class="button button-primary" type="submit">Buscar</button>
+          <button type="button" class="close-search" aria-label="Cerrar búsqueda">×</button>
+        </div>
+      </form>
     </div>
+
+    <noscript>Para navegar por los artículos de Grafika, activa JavaScript en tu navegador.</noscript>
   </body>
 </html>
