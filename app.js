@@ -293,7 +293,7 @@ function renderSupportContent() {
     <aside class="help-contact" aria-labelledby="contact-title"><h2 id="contact-title">Contacto y redes</h2>
       <div class="contact-panel"><span class="contact-panel-icon" aria-hidden="true">${ui('message-circle')}</span><h3>¿No encuentras lo que buscas?</h3><p>Escríbenos y te ayudaremos a encontrar la información que necesitas.</p><a class="button button-cta" href="mailto:grafikauam@gmail.com?subject=Consulta%20sobre%20Grafika">${ui('mail')}Escribir un correo</a><a class="contact-mail" href="mailto:grafikauam@gmail.com">grafikauam@gmail.com</a>
         <div class="contact-divider" role="presentation"></div><p class="contact-social-title">Síguenos en redes</p>
-        <div class="social-links" aria-label="Redes sociales">${socials.map(([id, name, svg]) => `<a class="social-link" href="#info" aria-label="${name}"><span class="social ${id}">${svg}</span><span>${name}</span></a>`).join('')}</div>
+        <div class="social-links" aria-label="Redes sociales">${socials.map(([id, name, svg]) => `<a class="social-link" href="https://www.instagram.com/grafika.uam/" aria-label="${name}"><span class="social ${id}">${svg}</span><span>${name}</span></a>`).join('')}</div>
       </div>
     </aside>
   </section>`;

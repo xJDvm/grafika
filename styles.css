@@ -765,3 +765,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
 @media(prefers-reduced-motion:reduce){.info-jump a,.start-card,.start-card>.ui-icon,.social-link{transition:none}}
 .es-t4:after{inset:auto;left:50%;top:50%;width:60%;aspect-ratio:1;transform:translate(-50%,-50%)}
 .info-jump{padding-bottom:8px}
+
+/* Ajustes: la barra lateral llena siempre la altura visible; en móvil vuelve al índice claro. */
+@media(min-width:1000px){
+  .guide-nav{height:100vh;min-height:0;max-height:none}
+}
+@media(max-width:999px){
+  .guide-nav{background:var(--paper);color:var(--navy);padding:16px clamp(18px,5vw,32px) 14px;gap:10px 12px}
+  .guide-nav .back-link{color:var(--navy)}
+  .guide-class{background:#e6e8f5}
+  .guide-nav .toc-disclosure{padding:12px;border:1px solid var(--line);border-radius:10px}
+  .guide-nav .toc-disclosure summary{background:#e6e8f5;color:var(--navy)}
+  .guide-nav .toc-list li{color:#33516f}
+  .guide-nav .toc-level-2{color:var(--navy)}
+  .guide-nav .toc-list a:hover,.guide-nav .toc-list a[aria-current]{color:var(--blue)}
+  .guide-nav .toc-list{margin-top:10px}
+}
