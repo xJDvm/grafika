@@ -1,4 +1,4 @@
-const CACHE_NAME = 'grafika-contenido-v15';
+const CACHE_NAME = 'grafika-contenido-v21';
 const CORE_FILES = [
   './', './index.html', './styles.css', './app.js', './content/catalog.json', './content/glossary.json',
   './content/articles/fundamentos-adobe-illustrator.md',
@@ -8,7 +8,7 @@ const CORE_FILES = [
   './assets/icons/printer.svg', './assets/icons/fingerprint.svg', './assets/icons/paintbrush.svg',
   './assets/icons/book-open.svg', './assets/icons/package.svg', './assets/icons/shield-check.svg',
   './assets/icons/book-open-text.svg', './assets/icons/wrench.svg', './assets/icons/message-circle.svg',
-  './assets/icons/target.svg', './assets/icons/circle-help.svg',
+  './assets/icons/target.svg', './assets/icons/circle-help.svg', './assets/icons/circle-play.svg',
 ];
 
 self.addEventListener('install', (event) => {

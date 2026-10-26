@@ -5,6 +5,16 @@ const globalSearchInput = document.querySelector('#global-search-input');
 
 let catalog = { categories: [], articles: [] };
 let glossary = { terms: [] };
+const videoTutorials = [
+  { title: 'Adobe Illustrator · Tutorial 1', category: 'Adobe Illustrator', id: 'gfOjG5-yyic', url: 'https://youtu.be/gfOjG5-yyic?si=rjULbFEjW4MGLnhA' },
+  { title: 'Adobe Illustrator · Tutorial 2', category: 'Adobe Illustrator', id: 'sekxanyTmGM', url: 'https://youtu.be/sekxanyTmGM?si=ihH-XXyWl9QZf-1V' },
+  { title: 'Adobe Illustrator · Tutorial 3', category: 'Adobe Illustrator', id: 'pHLA7RhERxg', url: 'https://youtu.be/pHLA7RhERxg?si=Jn4HLZ1HbZrtIbde' },
+  { title: 'Adobe Illustrator · Tutorial 4', category: 'Adobe Illustrator', id: 'NJLxoI1CdOs', url: 'https://youtu.be/NJLxoI1CdOs?si=yItf_Ipcepd9wSOu' },
+  { title: 'Cómo diseñar un cartel publicitario', category: 'Diseño de carteles', id: 'at31lfnHUCQ', url: 'https://youtu.be/at31lfnHUCQ?si=2Md2p6o9EobbIooc' },
+  { title: 'Cómo usar Photoshop · Tutorial 1', category: 'Photoshop', id: 'FB4DdUfvfwM', url: 'https://youtu.be/FB4DdUfvfwM?si=959YwK_Qugv1CrTy' },
+  { title: 'Cómo usar Photoshop · Tutorial 2', category: 'Photoshop', id: 'ynM5LAKv86M', url: 'https://youtu.be/ynM5LAKv86M?si=wkcdqneUffGW0T26' },
+  { title: 'InDesign desde cero', category: 'InDesign', id: 'sQumLDEC7zY', url: 'https://youtu.be/sQumLDEC7zY?si=CwqYaQNvRs_wSiEJ' }
+];
 const articleCache = new Map();
 const articleSearchText = new Map();
 
@@ -123,15 +133,15 @@ function renderHome() {
         <h1 id="home-title" class="hero-wordmark">GRAF!KA</h1>
         <p class="hero-description">Tu espacio de orientación académica para la carrera de Artes Mención Diseño Gráfico. Explora las clases, consulta guías y encuentra recursos para cada etapa.</p>
         <form class="hero-search" role="search" data-search-form><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="13.5" cy="13.5" r="9"/><path d="m20.5 20.5 7 7"/></svg><input name="q" type="search" placeholder="Buscar información, temas, recursos..." aria-label="Buscar información, temas y recursos" /><button type="submit" aria-label="Buscar">Buscar</button></form>
-        <div class="hero-actions"><a class="button button-primary hero-cta" href="#tutoriales">Explorar clases <span aria-hidden="true">→</span></a><a class="button button-ghost" href="#info">Conoce Grafika</a></div>
+        <div class="hero-actions"><a class="button button-primary hero-cta" href="#clases">Explorar clases <span aria-hidden="true">→</span></a><a class="button button-ghost" href="#info">Conoce Grafika</a></div>
       </div>
       ${artBlock('home')}
     </div>
     <section class="home-resources" aria-label="Accesos a recursos">
-      <a class="resource-card resource-featured resource-explore" href="#tutoriales"><span class="resource-icon" aria-hidden="true">${categoryIcon('illustrator')}</span><strong>Explorar clases</strong><span class="resource-copy">Entra al catálogo completo de las ocho clases de Diseño Gráfico y abre sus guías disponibles.</span><span class="resource-arrow">Ver catálogo&nbsp; →</span></a>
-      <a class="resource-card resource-orange resource-glossary" href="#glosario" aria-label="Abrir glosario académico"><span class="resource-icon" aria-hidden="true">${categoryIcon('book-open-text')}</span><strong>Glosario académico</strong><span class="resource-copy">Consulta conceptos de diseño, tipografía, color e impresión.</span><span class="resource-arrow"><span class="resource-arrow-label">Consultar glosario</span><span aria-hidden="true">→</span></span></a>
-      <a class="resource-card resource-purple" href="#categoria/illustrator"><span class="resource-icon" aria-hidden="true">${categoryIcon('illustrator')}</span><strong>Guías de Illustrator</strong><span class="resource-copy">Fundamentos y aspectos básicos para empezar con el diseño vectorial.</span><span class="resource-arrow">→</span></a>
-      <a class="resource-card resource-blue" href="#info"><span class="resource-icon" aria-hidden="true">${categoryIcon('chat')}</span><strong>¿Qué es Grafika?</strong><span class="resource-copy">Conoce el propósito de esta plataforma académica y cómo puede acompañarte.</span><span class="resource-arrow">→</span></a>
+      <a class="resource-card resource-featured resource-explore" href="#clases"><span class="resource-icon" aria-hidden="true">${categoryIcon('illustrator')}</span><strong>Explorar clases</strong><span class="resource-copy">Entra al catálogo completo de las ocho clases de Diseño Gráfico y abre sus guías disponibles.</span><span class="resource-arrow"><span class="resource-arrow-label">Ver catálogo</span><span class="resource-arrow-icon" aria-hidden="true">→</span></span></a>
+      <a class="resource-card resource-orange resource-glossary" href="#glosario" aria-label="Abrir glosario académico"><span class="resource-icon" aria-hidden="true">${categoryIcon('book-open-text')}</span><strong>Glosario académico</strong><span class="resource-copy">Consulta conceptos de diseño, tipografía, color e impresión.</span><span class="resource-arrow"><span class="resource-arrow-label">Consultar glosario</span><span class="resource-arrow-icon" aria-hidden="true">→</span></span></a>
+      <a class="resource-card resource-purple resource-tutorials" href="#tutoriales"><span class="resource-icon" aria-hidden="true">${categoryIcon('video')}</span><strong>Tutoriales en video</strong><span class="resource-copy">Videos de Illustrator, Photoshop, InDesign y diseño de carteles.</span><span class="resource-arrow"><span class="resource-arrow-label">Ver tutoriales</span><span class="resource-arrow-icon" aria-hidden="true">→</span></span></a>
+      <a class="resource-card resource-blue resource-info" href="#info"><span class="resource-icon" aria-hidden="true">${categoryIcon('chat')}</span><strong>¿Qué es Grafika?</strong><span class="resource-copy">Conoce el propósito de esta plataforma académica y cómo puede acompañarte.</span><span class="resource-arrow"><span class="resource-arrow-label">Conocer Grafika</span><span class="resource-arrow-icon" aria-hidden="true">→</span></span></a>
     </section>
   </section>`;
 }
@@ -146,6 +156,7 @@ function renderInfo() {
   return `<section class="page page-info" aria-labelledby="info-title">
     <div class="hero info-hero"><div class="hero-copy"><p class="hero-kicker" id="info-title">¿Qué es</p><h1 class="hero-wordmark">GRAF!KA<span>?</span></h1><p class="hero-description">Una plataforma web académica creada para orientar y acompañar a los estudiantes de Artes Mención Diseño Gráfico de la Universidad Arturo Michelena.</p></div>${artBlock('info')}</div>
     <section class="purpose-section"><div class="purpose-intro"><h2>Nuestro propósito</h2><p>Brindar un espacio accesible, organizado y amigable que conecte a los estudiantes con la información de su carrera.</p></div><div class="purpose-callout"><span class="target-icon" aria-hidden="true">${categoryIcon('target')}</span><p>Más que información, es una guía para tu trayectoria en la carrera.</p></div><div class="value-grid">${values.map(([icon, title, body]) => `<article class="value-card"><span class="value-icon value-${icon}" aria-hidden="true">${categoryIcon(icon)}</span><div class="value-text"><strong class="value-title">${title}</strong><strong class="value-body">${body}</strong></div></article>`).join('')}</div></section>
+    ${renderSupportContent()}
   </section>`;
 }
 
@@ -168,7 +179,7 @@ function categoryCard(category) {
 
 function categoryIcon(id) {
   const icons = {
-    illustrator: 'pen-tool', tipografia: 'type', color: 'palette', impresion: 'printer',
+    illustrator: 'pen-tool', tipografia: 'type', color: 'palette', impresion: 'printer', video: 'circle-play',
     'identidad-visual': 'fingerprint', ilustracion: 'paintbrush', editorial: 'book-open', packaging: 'package',
     shield: 'shield-check', book: 'book-open-text', 'book-open-text': 'book-open-text', tools: 'wrench', chat: 'message-circle', target: 'target'
   };
@@ -176,8 +187,17 @@ function categoryIcon(id) {
   return `<span class="lucide-icon" style="--lucide-icon:url('assets/icons/${name}.svg')" aria-hidden="true"></span>`;
 }
 
-function renderTutorials() {
-  return `<section class="page page-tutorials" aria-labelledby="tutorial-title"><div class="hero tutorials-hero"><div class="hero-copy"><p class="hero-kicker">Aprende, practica y</p><h1 class="hero-wordmark">GRAF!KA</h1><p class="hero-description">Explora las ocho clases de Diseño Gráfico.</p></div>${artBlock('tutoriales')}</div><section class="tutorial-directory" aria-label="Clases de Diseño Gráfico"><div class="tutorial-grid">${catalog.categories.map(categoryCard).join('')}</div></section></section>`;
+function renderClasses() {
+  return `<section class="page page-tutorials" aria-labelledby="classes-title"><div class="hero tutorials-hero"><div class="hero-copy"><p class="hero-kicker">Aprende, practica y</p><h1 id="classes-title" class="hero-wordmark">Clases</h1><p class="hero-description">Explora las ocho clases de Diseño Gráfico y abre sus guías disponibles.</p></div>${artBlock('tutoriales')}</div><section class="tutorial-directory" aria-label="Clases de Diseño Gráfico"><div class="tutorial-grid">${catalog.categories.map(categoryCard).join('')}</div></section></section>`;
+}
+
+function renderVideoTutorials() {
+  const groups = [...new Set(videoTutorials.map((video) => video.category))];
+  return `<section class="page page-video-tutorials" aria-labelledby="video-tutorials-title"><div class="hero tutorials-hero"><div class="hero-copy"><p class="hero-kicker">Aprende a tu ritmo</p><h1 id="video-tutorials-title" class="hero-wordmark">Tutoriales</h1><p class="hero-description">Videos prácticos de herramientas y temas de Diseño Gráfico.</p></div>${artBlock('tutoriales')}</div><div class="video-tutorial-directory">${groups.map((group) => `<section class="video-tutorial-group" aria-labelledby="${slugify(group)}-title"><div class="video-group-heading"><span>${categoryIcon(group === 'Diseño de carteles' ? 'palette' : 'video')}</span><h2 id="${slugify(group)}-title">${escapeHTML(group)}</h2></div><div class="video-tutorial-grid">${videoTutorials.filter((video) => video.category === group).map(videoTutorialCard).join('')}</div></section>`).join('')}</div></section>`;
+}
+
+function videoTutorialCard(video) {
+  return `<article class="video-tutorial-card"><div class="video-thumbnail"><img src="https://img.youtube.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg" alt="Miniatura de ${escapeHTML(video.title)}" loading="lazy"></div><div class="video-tutorial-details"><p class="video-category-label">${escapeHTML(video.category)}</p><h3>${escapeHTML(video.title)}</h3><div class="video-tutorial-actions"><a class="button button-primary" href="${escapeHTML(video.url)}" target="_blank" rel="noopener noreferrer">Ver en YouTube <span aria-hidden="true">↗</span></a><button class="button button-copy" type="button" data-copy-link="${escapeHTML(video.url)}" aria-live="polite">Copiar enlace</button></div></div></article>`;
 }
 
 function renderCategory(categoryId) {
@@ -186,8 +206,8 @@ function renderCategory(categoryId) {
   const articles = articlesFor(categoryId);
   const content = articles.length
     ? `<div class="article-card-grid">${articles.map((article) => `<a class="article-card" href="#articulo/${encodeURIComponent(article.slug)}"><span class="article-label">${escapeHTML(article.label)}</span><h2>${escapeHTML(article.title)}</h2><p>${escapeHTML(article.summary)}</p><span class="article-meta">Abrir clase <span>→</span></span></a>`).join('')}</div>`
-    : `<div class="empty-state"><span class="empty-mark" aria-hidden="true">✦</span><h2>Material pendiente</h2><p>Aún no hay contenido cargado para la clase de ${escapeHTML(category.title)}.</p><a class="button button-primary" href="#tutoriales">Volver a las clases</a></div>`;
-  return `<section class="page simple-page"><div class="simple-heading"><a class="back-link" href="#tutoriales">← Volver a tutoriales</a><p class="article-label">Clase</p><h1>${escapeHTML(category.title)}</h1>${category.subtitle ? `<p>${escapeHTML(category.subtitle)}</p>` : ''}</div>${content}</section>`;
+    : `<div class="empty-state"><span class="empty-mark" aria-hidden="true">✦</span><h2>Material pendiente</h2><p>Aún no hay contenido cargado para la clase de ${escapeHTML(category.title)}.</p><a class="button button-primary" href="#clases">Volver a las clases</a></div>`;
+  return `<section class="page simple-page"><div class="simple-heading"><a class="back-link" href="#clases">← Volver a clases</a><p class="article-label">Clase</p><h1>${escapeHTML(category.title)}</h1>${category.subtitle ? `<p>${escapeHTML(category.subtitle)}</p>` : ''}</div>${content}</section>`;
 }
 
 async function loadArticle(article) {
@@ -215,26 +235,24 @@ async function renderArticle(slug) {
     <div class="article-layout">
       <aside class="article-sidebar article-toc"><a class="back-link toc-back" href="#categoria/${encodeURIComponent(article.category)}">← Volver a ${escapeHTML(category?.title || 'la clase')}</a><h2>Contenido</h2><details class="toc-disclosure" open><summary>Contenido de la guía</summary><ol class="toc-list">${toc}</ol></details></aside>
       <article class="article-content">${rendered.html}${article.sourceNote ? `<p class="source-note">${escapeHTML(article.sourceNote)}</p>` : ''}</article>
-      <aside class="article-sidebar related-sidebar"><h2>Temas relacionados</h2>${related.map((item) => `<a class="related-link" href="#articulo/${encodeURIComponent(item.slug)}">${escapeHTML(item.title)} <span>→</span></a>`).join('') || '<p>Explora más temas y guías desde Tutoriales.</p>'}<a class="related-more" href="#tutoriales">Navega también por todas las categorías →</a></aside>
+      <aside class="article-sidebar related-sidebar"><h2>Temas relacionados</h2>${related.map((item) => `<a class="related-link" href="#articulo/${encodeURIComponent(item.slug)}">${escapeHTML(item.title)} <span>→</span></a>`).join('') || '<p>Explora más temas y guías desde Clases.</p>'}<a class="related-more" href="#clases">Navega también por todas las clases →</a></aside>
     </div>
   </section>`;
 }
 
-function renderSupport() {
+function renderSupportContent() {
   const questions = [
     ['¿Quiénes pueden utilizar Grafika?', 'Grafika está pensada para estudiantes de Artes Mención Diseño Gráfico de la Universidad Arturo Michelena.'],
-    ['¿Cómo puedo encontrar la información que necesito?', 'Usa la búsqueda del inicio o explora las categorías de Tutoriales para encontrar guías y recursos.'],
+    ['¿Cómo puedo encontrar la información que necesito?', 'Usa la búsqueda del inicio o explora las secciones de Clases, Tutoriales y Glosario.'],
     ['¿Hay contenidos para estudiantes que están comenzando la carrera?', 'Sí. Las guías están organizadas por temas y puedes comenzar por los fundamentos de Adobe Illustrator.'],
-    ['¿Qué hago si no encuentro un tema o recurso?', 'Escríbenos al correo de soporte y cuéntanos qué información necesitas.']
+    ['¿Qué hago si no encuentro un tema o recurso?', 'Escríbenos y cuéntanos qué información necesitas para que podamos orientarte.']
   ];
-  return `<section class="page page-support" aria-labelledby="support-title"><div class="hero support-hero"><div class="hero-copy"><h1 id="support-title" class="support-wordmark">¿Necesitas<br /><span>ayuda?</span></h1><p class="hero-description">Estamos aquí para apoyarte. Encuentra respuesta a tus dudas o contáctanos directamente.</p></div>${artBlock('support')}</div><section class="support-content">
-    <section class="support-group faq-group" aria-labelledby="faq-title"><h2 id="faq-title">Preguntas frecuentes</h2><div class="faq-list">${questions.map(([q,a]) => `<details class="faq-item"><summary>${escapeHTML(q)}<span class="faq-mark" aria-hidden="true">+</span></summary><div class="faq-panel"><p>${escapeHTML(a)}</p></div></details>`).join('')}</div></section>
-    <aside class="support-group contact-group" aria-labelledby="contact-title"><h2 id="contact-title">Contáctanos</h2>
+  return `<section class="support-content info-support-content" aria-label="Ayuda y contacto"><section class="support-group faq-group" aria-labelledby="faq-title"><h2 id="faq-title">Preguntas frecuentes</h2><div class="faq-list">${questions.map(([q,a]) => `<details class="faq-item"><summary>${escapeHTML(q)}<span class="faq-mark" aria-hidden="true">+</span></summary><div class="faq-panel"><p>${escapeHTML(a)}</p></div></details>`).join('')}</div></section>
+    <aside class="support-group contact-group" aria-labelledby="contact-title"><h2 id="contact-title">Contacto y redes</h2>
       <div class="contact-prompt"><h3>¿No encuentras lo que buscas?</h3><p>Escríbenos y te ayudaremos a encontrar la información que necesitas.</p><a class="button button-primary" href="mailto:grafikauam@gmail.com?subject=Consulta%20sobre%20Grafika">Escribir un correo</a></div>
       <div class="contact-card"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><div class="contact-detail"><strong>Correo</strong><a href="mailto:grafikauam@gmail.com">grafikauam@gmail.com</a></div></div>
-      <div class="contact-card"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 3 5c0-1 1-2 2-2z"/></svg></span><div class="contact-detail"><strong>Redes sociales</strong><div class="social-links" aria-label="Redes sociales"><a class="social instagram" href="#soporte" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a><a class="social facebook" href="#soporte" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V7c0-.8.2-1.2 1.3-1.2H17V3h-2.6C11.7 3 10.5 4.4 10.5 6.8V8.5H8.5v3h2v8.5h3.5V11.5h2.4l.4-3H14z"/></svg></a><a class="social tiktok" href="#soporte" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3h3c.2 2.2 1.4 3.6 3 4v3.1a8.2 8.2 0 0 1-4-1.4v6.2a6.1 6.1 0 1 1-6.1-6.1c.4 0 .8 0 1.1.1v3.3a2.8 2.8 0 1 0 1.3 2.4V3z"/></svg></a></div></div></div>
-    </aside>
-  </section></section>`;
+      <div class="contact-card"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 3 5c0-1 1-2 2-2z"/></svg></span><div class="contact-detail"><strong>Redes sociales</strong><div class="social-links" aria-label="Redes sociales"><a class="social instagram" href="#info" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.55" cy="6.55" r=".65" fill="currentColor" stroke="none"/></svg></a><a class="social facebook" href="#info" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.7 21v-8.1h2.75l.42-3.16H13.7v-2.02c0-.92.27-1.55 1.59-1.55H17V3.34c-.76-.1-1.68-.2-2.56-.2-2.53 0-4.26 1.55-4.26 4.4v2.2H7.32v3.16h2.86V21z"/></svg></a><a class="social tiktok" href="#info" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.25 3h3.1c.2 2.25 1.5 3.78 3.65 4.28v3.17a9 9 0 0 1-4.17-1.38v6.02a6.05 6.05 0 1 1-6.06-6.05c.48 0 .94.05 1.38.16v3.34a2.85 2.85 0 1 0 1.9 2.7z"/></svg></a></div></div></div>
+    </aside></section>`;
 }
 
 function normalizeSearch(value) {
@@ -302,11 +320,14 @@ function renderSearch(query) {
   });
   const terms = glossary.terms.map((term) => ({ term, score: matchScore(query, `${term.term} ${term.definition}`) }))
     .filter((entry) => entry.score > 0).sort((a, b) => b.score - a.score);
+  const videos = videoTutorials.map((video) => ({ video, score: matchScore(query, `${video.title} ${video.category}`) }))
+    .filter((entry) => entry.score > 0).sort((a, b) => b.score - a.score);
   return `<section class="page simple-page search-results-page"><div class="simple-heading"><p class="article-label">Búsqueda</p><h1>Resultados para “${escapeHTML(query)}”</h1></div>
     ${terms.length ? `<section class="search-result-group glossary-result-group" aria-labelledby="glossary-results-title"><div class="search-group-heading"><span class="search-group-icon">${categoryIcon('book-open-text')}</span><div><p class="search-group-kicker">Glosario académico</p><h2 id="glossary-results-title">Términos relacionados <span>${terms.length}</span></h2></div><a href="#glosario">Ver glosario completo →</a></div><div class="glossary-results-grid">${terms.map(({term}) => `<a class="glossary-result-card" href="#glosario/${encodeURIComponent(term.term)}"><span class="glossary-result-label">Término del glosario</span><h3>${escapeHTML(term.term)}</h3><p>${escapeHTML(term.definition)}</p><span class="glossary-result-link">Ver término en el glosario <span aria-hidden="true">→</span></span></a>`).join('')}</div></section>` : ''}
+    ${videos.length ? `<section class="search-result-group video-search-results" aria-labelledby="video-results-title"><h2 class="results-subheading" id="video-results-title">Tutoriales en video <span>${videos.length}</span></h2><div class="video-tutorial-grid">${videos.map(({video}) => videoTutorialCard(video)).join('')}</div></section>` : ''}
     ${articles.length ? `<section class="search-result-group" aria-labelledby="article-results-title"><h2 class="results-subheading" id="article-results-title">Artículos y guías <span>${articles.length}</span></h2><div class="article-card-grid">${articles.map((article) => `<a class="article-card" href="#articulo/${encodeURIComponent(article.slug)}"><span class="article-label">${escapeHTML(article.label)}</span><h2>${escapeHTML(article.title)}</h2><p>${escapeHTML(article.summary)}</p><span class="article-meta">Abrir artículo <span>→</span></span></a>`).join('')}</div></section>` : ''}
     ${categories.length ? `<section class="search-result-group" aria-labelledby="class-results-title"><h2 class="results-subheading" id="class-results-title">Clases <span>${categories.length}</span></h2><div class="tutorial-grid">${categories.map(categoryCard).join('')}</div></section>` : ''}
-    ${!terms.length && !articles.length && !categories.length ? `<div class="empty-state"><h2>No encontramos resultados</h2><p>Prueba con otro término o explora el glosario y las clases.</p><a class="button button-primary" href="#glosario">Abrir glosario</a><a class="button button-ghost-dark" href="#tutoriales">Ver clases</a></div>` : ''}</section>`;
+    ${!terms.length && !videos.length && !articles.length && !categories.length ? `<div class="empty-state"><h2>No encontramos resultados</h2><p>Prueba con otro término o explora el glosario y las clases.</p><a class="button button-primary" href="#glosario">Abrir glosario</a><a class="button button-ghost-dark" href="#clases">Ver clases</a></div>` : ''}</section>`;
 }
 
 function renderNotFound() {
@@ -322,7 +343,8 @@ function routeFromHash() {
   if (!raw || raw === 'home') return ['inicio'];
   const [route, ...rest] = raw.split('/');
   const arg = rest.join('/');
-  if (route === 'inicio' || route === 'info' || route === 'tutoriales' || route === 'soporte') return [route];
+  if (route === 'inicio' || route === 'info' || route === 'tutoriales' || route === 'clases') return [route];
+  if (route === 'soporte') return ['info'];
   if (route === 'glosario') return ['glosario', decodeURIComponent(arg || '')];
   if (route === 'categoria') return ['categoria', decodeURIComponent(arg)];
   if (route === 'articulo') return ['articulo', decodeURIComponent(arg)];
@@ -332,7 +354,7 @@ function routeFromHash() {
 }
 
 function setActiveNav(route) {
-  const active = ['categoria', 'articulo'].includes(route) ? 'tutoriales' : route;
+  const active = ['categoria', 'articulo'].includes(route) ? 'clases' : route;
   navItems.forEach((item) => item.classList.toggle('is-active', item.dataset.nav === active));
 }
 
@@ -349,8 +371,8 @@ async function renderRoute() {
   try {
     if (route === 'inicio') app.innerHTML = renderHome();
     else if (route === 'info') app.innerHTML = renderInfo();
-    else if (route === 'tutoriales') app.innerHTML = renderTutorials();
-    else if (route === 'soporte') app.innerHTML = renderSupport();
+    else if (route === 'tutoriales') app.innerHTML = renderVideoTutorials();
+    else if (route === 'clases') app.innerHTML = renderClasses();
     else if (route === 'glosario') {
       glossaryLetter = '';
       app.innerHTML = renderGlossary(argument || '');
@@ -400,6 +422,25 @@ window.addEventListener('online', () => { if (routeFromHash()[0] === 'offline') 
 
 function closeMenu() { /* El menú compacto se reemplazó por una navegación inline deslizable. */ }
 
+const navScrollControls = [...document.querySelectorAll('[data-nav-scroll]')];
+function updateNavScrollControls() {
+  const navigation = document.querySelector('#main-nav');
+  if (!navigation) return;
+  const hasOverflow = navigation.scrollWidth > navigation.clientWidth + 2;
+  const atStart = navigation.scrollLeft <= 1;
+  const atEnd = navigation.scrollLeft + navigation.clientWidth >= navigation.scrollWidth - 1;
+  navScrollControls.forEach((button) => {
+    const isLeft = button.dataset.navScroll === 'left';
+    button.hidden = !hasOverflow || (isLeft ? atStart : atEnd);
+  });
+}
+document.querySelector('#main-nav')?.addEventListener('scroll', updateNavScrollControls, { passive: true });
+window.addEventListener('resize', updateNavScrollControls);
+navScrollControls.forEach((button) => button.addEventListener('click', () => {
+  document.querySelector('#main-nav')?.scrollBy({ left: button.dataset.navScroll === 'left' ? -160 : 160, behavior: 'smooth' });
+}));
+requestAnimationFrame(updateNavScrollControls);
+
 document.querySelector('.search-toggle').addEventListener('click', () => {
   searchOverlay.hidden = false;
   globalSearchInput.focus();
@@ -438,6 +479,30 @@ function filterGlossary() {
   if (empty) empty.hidden = visible !== 0;
 }
 document.addEventListener('click', (event) => {
+  const copyButton = event.target.closest('[data-copy-link]');
+  if (copyButton) {
+    event.preventDefault();
+    const link = copyButton.dataset.copyLink;
+    const originalText = 'Copiar enlace';
+    const copyToClipboard = async () => {
+      try {
+        await navigator.clipboard.writeText(link);
+      } catch {
+        const input = document.createElement('textarea');
+        input.value = link;
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.append(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
+      }
+      copyButton.textContent = '¡Enlace copiado!';
+      window.setTimeout(() => { copyButton.textContent = originalText; }, 1800);
+    };
+    copyToClipboard();
+    return;
+  }
   const letterButton = event.target.closest('[data-glossary-letter]');
   if (letterButton) {
     glossaryLetter = letterButton.dataset.glossaryLetter;

@@ -264,14 +264,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
    Este bloque va al final para prevalecer en la cascada.
    ============================================================ */
 
-/* 1) TOPBAR — logo + navegación inline + lupa + icono de persona, en una fila.
-   La navegación va entre el logo y la lupa; si no cabe, se desliza en horizontal.
-   El icono de persona se muestra siempre. */
+/* 1) TOPBAR — logo, lupa, separador y navegación. */
 .menu-toggle{display:none!important}
 .site-header{flex-wrap:nowrap}
 .main-nav{min-width:0}
-.account-button{display:grid}
-.account-button svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
 /* Tablet y móvil: todo en una sola fila; la nav se desliza si no cabe. */
 @media(max-width:900px){
@@ -283,8 +279,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
   .nav-link.is-active:after{left:0;right:0;bottom:-3px;height:3px}
   .search-toggle{flex:none;order:0;padding:6px}
   .search-toggle svg{width:24px;height:24px}
-  .account-button{flex:none;padding:4px}
-  .account-button svg{width:26px;height:26px}
   .page{min-height:calc(100vh - 72px)}
   .search-overlay{inset:72px 0 auto}
 }
@@ -418,4 +412,190 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
   .faq-item[open] .faq-panel{animation:none}
   .main-nav{transition:none}
   .faq-mark,.toc-disclosure summary:after,.contact-card .social{transition:none}
+}
+
+/* Navegación actual: los iconos pequeños acompañan cada destino. */
+.site-header{gap:clamp(12px,2vw,28px)}
+.brand{margin-right:0;flex:none}
+.search-toggle{flex:none}
+.nav-separator{display:block;width:1px;height:32px;flex:none;background:rgba(1,47,99,.22)}
+.main-nav{flex:1 1 auto;justify-content:space-between;gap:clamp(12px,2vw,28px)}
+.main-nav .nav-link{display:inline-flex;align-items:center;gap:7px;font-size:clamp(14px,1.5vw,20px)}
+.main-nav .nav-link svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:900px){
+  .site-header{gap:clamp(8px,1.8vw,16px)}
+  .brand{margin:0}
+  .nav-separator{height:28px}
+  .main-nav{justify-content:flex-start;gap:clamp(12px,2.6vw,20px)}
+  .main-nav .nav-link{gap:5px;font-size:clamp(13px,3.1vw,15px)}
+  .main-nav .nav-link svg{width:15px;height:15px}
+}
+@media(max-width:420px){
+  .main-nav .nav-link{gap:4px;font-size:12px}
+  .main-nav .nav-link svg{width:14px;height:14px}
+}
+
+/* Flechas uniformes en las tarjetas de acceso de Inicio. */
+.resource-card:not(.resource-featured) .resource-arrow{
+  position:absolute;right:22px;bottom:18px;left:22px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  color:var(--paper);font-size:14px;font-weight:700
+}
+.resource-card:not(.resource-featured) .resource-arrow-icon{
+  display:grid;place-items:center;flex:none;width:42px;height:42px;
+  border:1px solid rgba(255,255,255,.42);border-radius:50%;
+  background:rgba(255,255,255,.16);font-size:25px;line-height:1;
+  transition:transform .2s ease,background-color .2s ease,border-color .2s ease
+}
+.resource-card:not(.resource-featured):hover .resource-arrow-icon{
+  transform:translateX(3px);background:rgba(255,255,255,.27);border-color:rgba(255,255,255,.72)
+}
+.resource-explore .resource-arrow{right:22px;bottom:18px;left:22px}
+.resource-glossary .resource-arrow{right:22px;bottom:18px;left:22px;gap:12px}
+.resource-card .resource-arrow-icon{
+  display:grid;place-items:center;flex:none;width:42px;height:42px;
+  border:1px solid rgba(255,255,255,.42);border-radius:50%;
+  background:rgba(255,255,255,.16);font-size:25px;line-height:1;
+  transition:transform .2s ease,background-color .2s ease,border-color .2s ease
+}
+.resource-card:hover .resource-arrow-icon{transform:translateX(3px);background:rgba(255,255,255,.27);border-color:rgba(255,255,255,.72)}
+
+/* Indicadores para recorrer la navegación horizontal del topbar. */
+.main-nav{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.main-nav::-webkit-scrollbar{display:none}
+.main-nav .nav-link{flex:none}
+.nav-scroll-control{
+  display:grid;place-items:center;flex:none;width:28px;height:30px;padding:0;
+  border:1px solid rgba(1,47,99,.2);border-radius:8px;background:#fff;color:var(--navy);
+  font-family:inherit;font-size:20px;font-weight:600;line-height:1;cursor:pointer;
+  transition:background-color .18s,border-color .18s,transform .18s
+}
+.nav-scroll-control:hover{background:#e6e8f5;border-color:rgba(1,47,99,.42);transform:translateY(-1px)}
+.nav-scroll-control[hidden]{display:none}
+@media(max-width:760px){
+  .resource-card:not(.resource-featured){
+    min-height:84px;height:auto;padding:12px 14px;grid-template-columns:48px minmax(0,1fr) 42px;
+    grid-template-rows:auto auto;align-items:center;column-gap:12px;row-gap:3px
+  }
+  .resource-card:not(.resource-featured) .resource-icon{grid-column:1;grid-row:1/3;width:48px;height:48px}
+  .resource-card:not(.resource-featured) strong{grid-column:2;grid-row:1;align-self:end;line-height:1.2}
+  .resource-card:not(.resource-featured) .resource-copy{display:block;grid-column:2;grid-row:2;align-self:start;margin:0;font-size:12px;line-height:1.3}
+  .resource-card:not(.resource-featured) .resource-arrow{
+    position:static;grid-column:3;grid-row:1/3;justify-self:end;align-self:center;
+    display:grid;place-items:center;width:42px;height:42px;margin:0
+  }
+  .resource-card:not(.resource-featured) .resource-arrow-label{display:none}
+  .resource-card:not(.resource-featured) .resource-arrow-icon{width:42px;height:42px}
+  .resource-explore .resource-arrow{grid-column:2;grid-row:3;display:flex;width:auto;height:auto;justify-self:start;justify-content:flex-end;margin-top:8px}
+  .resource-explore .resource-arrow-label{display:inline}
+}
+@media(prefers-reduced-motion:reduce){
+  .resource-card:not(.resource-featured) .resource-arrow-icon,.nav-scroll-control{transition:none}
+}
+
+/* Acciones homogéneas: misma caja, círculo y anclaje en todas las tarjetas. */
+.resource-card .resource-arrow{
+  position:absolute;right:20px;bottom:18px;left:20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:42px;color:inherit;font-size:14px;font-weight:700
+}
+.resource-card .resource-arrow-icon{
+  display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;
+  box-sizing:border-box;border:1px solid rgba(255,255,255,.48);border-radius:50%;
+  background:rgba(255,255,255,.18);font-size:24px;line-height:1
+}
+.resource-featured .resource-arrow{color:#4285f4}
+.resource-card:hover .resource-arrow-icon{transform:translateX(3px);background:rgba(255,255,255,.28)}
+
+/* En vistas estrechas, la acción queda centrada en el mismo eje vertical. */
+@media(max-width:760px){
+  .resource-card .resource-arrow{top:50%;right:14px;bottom:auto;left:auto;width:42px;min-height:42px;transform:translateY(-50%)}
+  .resource-card .resource-arrow-label{display:none}
+  .resource-card .resource-arrow-icon{width:42px;height:42px}
+  .resource-featured .resource-arrow{grid-column:auto;grid-row:auto;margin:0;justify-self:auto;color:var(--paper)}
+  .resource-featured .resource-arrow-icon{color:var(--paper)}
+}
+
+/* En los encabezados de glosario y clase, volver y categoría tienen aire propio. */
+.simple-heading{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.simple-heading .back-link,.simple-heading .article-label{display:inline-flex;width:max-content;max-width:100%;margin:0}
+.simple-heading .back-link{margin-bottom:4px}
+.simple-heading h1{margin:0;line-height:1.1}
+.simple-heading>p:not(.article-label){margin:4px 0 0;line-height:1.5}
+
+/* Logotipos sociales centrados y con proporciones legibles dentro del círculo. */
+.contact-card .social{width:44px;height:44px;flex:0 0 44px}
+.contact-card .social svg{display:block;width:25px;height:25px}
+.contact-card .social.facebook svg{width:23px;height:23px}
+.contact-card .social.tiktok svg{width:25px;height:25px}
+@media(prefers-reduced-motion:reduce){.resource-card .resource-arrow-icon{transition:none}}
+
+/* La página Info integra propósito, preguntas frecuentes y contacto. */
+.info-support-content{margin-top:12px;border-top:1px solid var(--line)}
+
+/* Tutoriales externos: se muestran miniaturas y acciones, nunca un reproductor incrustado. */
+.video-tutorial-directory{max-width:1440px;margin:0 auto;padding:36px clamp(22px,6vw,88px) 64px}
+.video-tutorial-group+.video-tutorial-group{margin-top:38px}
+.video-group-heading{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.video-group-heading>span{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#e6e8f5;color:var(--purple)}
+.video-group-heading .lucide-icon{width:22px;height:22px}
+.video-group-heading h2{margin:0;font-size:clamp(21px,2.4vw,30px)}
+.video-tutorial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:20px}
+.video-tutorial-card{overflow:hidden;min-width:0;border:1px solid var(--line);border-radius:16px;background:#fbf8f3;box-shadow:0 5px 16px #012f6314;transition:transform .2s,box-shadow .2s}
+.video-tutorial-card:hover{transform:translateY(-3px);box-shadow:0 12px 25px #012f6324}
+.video-thumbnail{aspect-ratio:16/9;overflow:hidden;background:#e6e8f5}
+.video-thumbnail img{width:100%;height:100%;object-fit:cover}
+.video-tutorial-details{padding:16px}
+.video-category-label{margin:0 0 5px;color:#5a6fc4;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.video-tutorial-details h3{min-height:2.5em;margin:0 0 14px;font-size:17px;line-height:1.3}
+.video-tutorial-actions{display:flex;flex-wrap:wrap;gap:9px}
+.video-tutorial-actions .button{min-height:42px;padding:9px 14px;font-size:12px;border-radius:10px}
+.video-tutorial-actions .button-primary{flex:1 1 auto}
+.button-copy{color:var(--navy);background:#fff;border:1px solid var(--line);box-shadow:none;transition:background .18s,color .18s,border-color .18s}
+.button-copy:hover{background:#e6e8f5;border-color:rgba(79,95,234,.45)}
+.video-search-results .video-tutorial-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.video-search-results .video-tutorial-details h3{font-size:15px}
+@media(max-width:600px){
+  .video-tutorial-directory{padding:26px 20px 44px}
+  .video-tutorial-group+.video-tutorial-group{margin-top:28px}
+  .video-tutorial-grid{grid-template-columns:1fr;gap:14px}
+  .video-tutorial-card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:stretch}
+  .video-thumbnail{height:100%;min-height:100%;aspect-ratio:auto}
+  .video-tutorial-details{display:flex;flex-direction:column;justify-content:center;padding:13px}
+  .video-tutorial-details h3{min-height:0;font-size:14px;margin-bottom:12px}
+  .video-tutorial-actions{display:grid;grid-template-columns:1fr}
+  .video-tutorial-actions .button{width:100%;min-height:38px;padding:8px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.video-tutorial-card,.button-copy{transition:none}}
+
+/* Overrides finales: las cuatro tarjetas comparten una acción fija y uniforme. */
+.resource-card .resource-arrow,
+.resource-card.resource-featured .resource-arrow{
+  position:absolute;left:20px;right:20px;bottom:18px;top:auto;
+  width:auto;height:42px;min-height:42px;margin:0;padding:0;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  transform:none;color:inherit
+}
+.resource-card .resource-arrow-icon{
+  display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;
+  box-sizing:border-box;border:1px solid rgba(255,255,255,.48);border-radius:50%;
+  background:rgba(255,255,255,.18);font-size:24px;line-height:1
+}
+.resource-card.resource-glossary .resource-arrow-icon{width:42px;height:42px;flex-basis:42px;font-size:24px}
+.resource-card.resource-glossary .resource-arrow .resource-arrow-icon:last-child{width:42px;height:42px;flex-basis:42px}
+.resource-card.resource-featured .resource-arrow{color:#4285f4}
+.resource-card.resource-featured strong,.resource-card.resource-featured .resource-copy{padding-right:54px}
+.resource-card:hover .resource-arrow-icon{transform:translateX(3px);background:rgba(255,255,255,.28)}
+@media(max-width:760px){
+  .resource-card:not(.resource-featured) .resource-arrow,
+  .resource-card.resource-featured .resource-arrow{
+    position:absolute;top:50%;right:14px;bottom:auto;left:auto;
+    width:42px;height:42px;min-height:42px;margin:0;padding:0;
+    display:grid;place-items:center;transform:translateY(-50%);color:var(--paper)
+  }
+  .resource-card .resource-arrow-label{display:none}
+  .resource-card .resource-arrow-icon{width:42px;height:42px;color:inherit}
+  .resource-card.resource-glossary .resource-arrow-icon{width:42px;height:42px;flex-basis:42px}
+  .resource-card.resource-glossary .resource-arrow .resource-arrow-icon:last-child{width:42px;height:42px;flex-basis:42px}
+  .resource-card.resource-featured strong,.resource-card.resource-featured .resource-copy{padding-right:54px}
 }
