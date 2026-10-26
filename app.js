@@ -4,6 +4,7 @@ const searchOverlay = document.querySelector('.search-overlay');
 const globalSearchInput = document.querySelector('#global-search-input');
 
 let catalog = { categories: [], articles: [] };
+let glossary = { terms: [] };
 const articleCache = new Map();
 const articleSearchText = new Map();
 
@@ -128,7 +129,7 @@ function renderHome() {
     </div>
     <section class="home-resources" aria-label="Accesos a recursos">
       <a class="resource-card resource-featured resource-explore" href="#tutoriales"><span class="resource-icon" aria-hidden="true">${categoryIcon('illustrator')}</span><strong>Explorar clases</strong><span class="resource-copy">Entra al catálogo completo de las ocho clases de Diseño Gráfico y abre sus guías disponibles.</span><span class="resource-arrow">Ver catálogo&nbsp; →</span></a>
-      <a class="resource-card resource-orange" href="#categoria/tipografia"><span class="resource-icon" aria-hidden="true">${categoryIcon('tipografia')}</span><strong>Glosario académico</strong><span class="resource-copy">Consulta el material de Tipografía dentro de la identidad visual.</span><span class="resource-arrow">→</span></a>
+      <a class="resource-card resource-orange resource-glossary" href="#glosario" aria-label="Abrir glosario académico"><span class="resource-icon" aria-hidden="true">${categoryIcon('book-open-text')}</span><strong>Glosario académico</strong><span class="resource-copy">Consulta conceptos de diseño, tipografía, color e impresión.</span><span class="resource-arrow"><span class="resource-arrow-label">Consultar glosario</span><span aria-hidden="true">→</span></span></a>
       <a class="resource-card resource-purple" href="#categoria/illustrator"><span class="resource-icon" aria-hidden="true">${categoryIcon('illustrator')}</span><strong>Guías de Illustrator</strong><span class="resource-copy">Fundamentos y aspectos básicos para empezar con el diseño vectorial.</span><span class="resource-arrow">→</span></a>
       <a class="resource-card resource-blue" href="#info"><span class="resource-icon" aria-hidden="true">${categoryIcon('chat')}</span><strong>¿Qué es Grafika?</strong><span class="resource-copy">Conoce el propósito de esta plataforma académica y cómo puede acompañarte.</span><span class="resource-arrow">→</span></a>
     </section>
@@ -148,6 +149,17 @@ function renderInfo() {
   </section>`;
 }
 
+function renderGlossary(initialQuery = '') {
+  const letters = [...new Set(glossary.terms.map((item) => item.term.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()[0]))].sort();
+  return `<section class="page simple-page glossary-page" aria-labelledby="glossary-title">
+    <div class="simple-heading"><a class="back-link" href="#inicio">← Volver al inicio</a><p class="article-label">Recursos académicos</p><h1 id="glossary-title">Glosario académico</h1><p>Encuentra definiciones de conceptos usados en Diseño Gráfico.</p></div>
+    <div class="glossary-tools"><label class="glossary-search"><span class="sr-only">Buscar un término</span><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="13.5" cy="13.5" r="9"/><path d="m20.5 20.5 7 7"/></svg><input type="search" id="glossary-search" value="${escapeHTML(initialQuery)}" placeholder="Buscar término o definición…" autocomplete="off"></label><p class="glossary-count" aria-live="polite"><strong id="glossary-count">${glossary.terms.length}</strong> términos</p></div>
+    <nav class="glossary-letters" aria-label="Filtrar por letra"><button class="glossary-letter is-active" type="button" data-glossary-letter="">Todas</button>${letters.map((letter) => `<button class="glossary-letter" type="button" data-glossary-letter="${letter}">${letter}</button>`).join('')}</nav>
+    <div class="glossary-grid">${glossary.terms.map((item) => { const letter = item.term.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()[0]; return `<article class="glossary-card" data-glossary-card data-letter="${letter}" data-search="${escapeHTML(`${item.term} ${item.definition}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase())}"><span class="glossary-term-letter" aria-hidden="true">${letter}</span><h2>${escapeHTML(item.term)}</h2><p>${escapeHTML(item.definition)}</p></article>`; }).join('')}</div>
+    <p class="glossary-empty" hidden>No encontramos términos con esa búsqueda. Prueba con otra palabra o letra.</p>
+  </section>`;
+}
+
 function categoryCard(category) {
   const count = articlesFor(category.id).length;
   const icon = categoryIcon(category.id);
@@ -158,7 +170,7 @@ function categoryIcon(id) {
   const icons = {
     illustrator: 'pen-tool', tipografia: 'type', color: 'palette', impresion: 'printer',
     'identidad-visual': 'fingerprint', ilustracion: 'paintbrush', editorial: 'book-open', packaging: 'package',
-    shield: 'shield-check', book: 'book-open-text', tools: 'wrench', chat: 'message-circle', target: 'target'
+    shield: 'shield-check', book: 'book-open-text', 'book-open-text': 'book-open-text', tools: 'wrench', chat: 'message-circle', target: 'target'
   };
   const name = icons[id] || 'circle-help';
   return `<span class="lucide-icon" style="--lucide-icon:url('assets/icons/${name}.svg')" aria-hidden="true"></span>`;
@@ -226,7 +238,8 @@ function renderSupport() {
 }
 
 function normalizeSearch(value) {
-  return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es').replace(/[^a-z0-9]+/g, ' ').trim();
+  return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es')
+    .replace(/[-‐‑‒–—]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
 function editDistanceWithin(a, b, limit) {
@@ -250,6 +263,11 @@ function matchScore(query, text, allowTypos = true) {
   const normalizedText = normalizeSearch(text);
   if (!normalizedQuery || !normalizedText) return 0;
   if (normalizedText.includes(normalizedQuery)) return 100;
+  // Une palabras separadas por espacios para igualar variantes como
+  // "hi-res", "hi res" y "hires" sin perder la búsqueda por frase.
+  const compactQuery = normalizedQuery.replace(/\s+/g, '');
+  const compactText = normalizedText.replace(/\s+/g, '');
+  if (compactQuery.length >= 3 && compactText.includes(compactQuery)) return 92;
   const queryWords = normalizedQuery.split(/\s+/).filter(Boolean);
   const textWords = normalizedText.split(/\s+/).filter(Boolean);
   let score = 0;
@@ -282,7 +300,13 @@ function renderSearch(query) {
     const relatedText = articlesFor(category.id).map((article) => articleSearchText.get(article.slug) || `${article.title} ${article.summary}`).join(' ');
     return Math.max(matchScore(query, `${category.title} ${category.subtitle}`), matchScore(query, relatedText, false)) > 0;
   });
-  return `<section class="page simple-page"><div class="simple-heading"><p class="article-label">Búsqueda</p><h1>Resultados para “${escapeHTML(query)}”</h1></div>${articles.length ? `<div class="article-card-grid">${articles.map((article) => `<a class="article-card" href="#articulo/${encodeURIComponent(article.slug)}"><span class="article-label">${escapeHTML(article.label)}</span><h2>${escapeHTML(article.title)}</h2><p>${escapeHTML(article.summary)}</p><span class="article-meta">Abrir clase <span>→</span></span></a>`).join('')}</div>` : ''}${categories.length ? `<h2 class="results-subheading">Clases</h2><div class="tutorial-grid">${categories.map(categoryCard).join('')}</div>` : ''}${!articles.length && !categories.length ? `<div class="empty-state"><h2>No encontramos resultados</h2><p>Prueba con otro término o explora las clases disponibles.</p><a class="button button-primary" href="#tutoriales">Ver clases</a></div>` : ''}</section>`;
+  const terms = glossary.terms.map((term) => ({ term, score: matchScore(query, `${term.term} ${term.definition}`) }))
+    .filter((entry) => entry.score > 0).sort((a, b) => b.score - a.score);
+  return `<section class="page simple-page search-results-page"><div class="simple-heading"><p class="article-label">Búsqueda</p><h1>Resultados para “${escapeHTML(query)}”</h1></div>
+    ${terms.length ? `<section class="search-result-group glossary-result-group" aria-labelledby="glossary-results-title"><div class="search-group-heading"><span class="search-group-icon">${categoryIcon('book-open-text')}</span><div><p class="search-group-kicker">Glosario académico</p><h2 id="glossary-results-title">Términos relacionados <span>${terms.length}</span></h2></div><a href="#glosario">Ver glosario completo →</a></div><div class="glossary-results-grid">${terms.map(({term}) => `<a class="glossary-result-card" href="#glosario/${encodeURIComponent(term.term)}"><span class="glossary-result-label">Término del glosario</span><h3>${escapeHTML(term.term)}</h3><p>${escapeHTML(term.definition)}</p><span class="glossary-result-link">Ver término en el glosario <span aria-hidden="true">→</span></span></a>`).join('')}</div></section>` : ''}
+    ${articles.length ? `<section class="search-result-group" aria-labelledby="article-results-title"><h2 class="results-subheading" id="article-results-title">Artículos y guías <span>${articles.length}</span></h2><div class="article-card-grid">${articles.map((article) => `<a class="article-card" href="#articulo/${encodeURIComponent(article.slug)}"><span class="article-label">${escapeHTML(article.label)}</span><h2>${escapeHTML(article.title)}</h2><p>${escapeHTML(article.summary)}</p><span class="article-meta">Abrir artículo <span>→</span></span></a>`).join('')}</div></section>` : ''}
+    ${categories.length ? `<section class="search-result-group" aria-labelledby="class-results-title"><h2 class="results-subheading" id="class-results-title">Clases <span>${categories.length}</span></h2><div class="tutorial-grid">${categories.map(categoryCard).join('')}</div></section>` : ''}
+    ${!terms.length && !articles.length && !categories.length ? `<div class="empty-state"><h2>No encontramos resultados</h2><p>Prueba con otro término o explora el glosario y las clases.</p><a class="button button-primary" href="#glosario">Abrir glosario</a><a class="button button-ghost-dark" href="#tutoriales">Ver clases</a></div>` : ''}</section>`;
 }
 
 function renderNotFound() {
@@ -299,6 +323,7 @@ function routeFromHash() {
   const [route, ...rest] = raw.split('/');
   const arg = rest.join('/');
   if (route === 'inicio' || route === 'info' || route === 'tutoriales' || route === 'soporte') return [route];
+  if (route === 'glosario') return ['glosario', decodeURIComponent(arg || '')];
   if (route === 'categoria') return ['categoria', decodeURIComponent(arg)];
   if (route === 'articulo') return ['articulo', decodeURIComponent(arg)];
   if (route === 'buscar') return ['buscar', decodeURIComponent(arg || '')];
@@ -326,6 +351,12 @@ async function renderRoute() {
     else if (route === 'info') app.innerHTML = renderInfo();
     else if (route === 'tutoriales') app.innerHTML = renderTutorials();
     else if (route === 'soporte') app.innerHTML = renderSupport();
+    else if (route === 'glosario') {
+      glossaryLetter = '';
+      app.innerHTML = renderGlossary(argument || '');
+      document.querySelectorAll('[data-glossary-letter]').forEach((button) => button.classList.toggle('is-active', button.dataset.glossaryLetter === ''));
+      filterGlossary();
+    }
     else if (route === 'categoria') app.innerHTML = renderCategory(argument);
     else if (route === 'articulo') app.innerHTML = await renderArticle(argument);
     else if (route === 'buscar') app.innerHTML = renderSearch(argument);
@@ -343,6 +374,9 @@ async function start() {
     const response = await fetch('content/catalog.json');
     if (!response.ok) throw new Error('No se pudo cargar el catálogo');
     catalog = await response.json();
+    const glossaryResponse = await fetch('content/glossary.json');
+    if (!glossaryResponse.ok) throw new Error('No se pudo cargar el glosario');
+    glossary = await glossaryResponse.json();
   } catch {
     app.innerHTML = navigator.onLine
       ? `<section class="page simple-page"><div class="empty-state"><h1>Grafika no pudo cargar el catálogo</h1><p>Comprueba la conexión y vuelve a intentarlo.</p><button class="button button-primary" data-retry>Reintentar</button></div></section>`
@@ -385,7 +419,31 @@ document.addEventListener('submit', (event) => {
   const query = new FormData(form).get('q')?.toString().trim();
   if (query) location.hash = `#buscar/${encodeURIComponent(query)}`;
 });
+document.addEventListener('input', (event) => {
+  if (event.target.id !== 'glossary-search') return;
+  filterGlossary();
+});
+let glossaryLetter = '';
+function filterGlossary() {
+  const query = (document.querySelector('#glossary-search')?.value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  let visible = 0;
+  document.querySelectorAll('[data-glossary-card]').forEach((card) => {
+    const show = (!glossaryLetter || card.dataset.letter === glossaryLetter) && (!query || card.dataset.search.includes(query));
+    card.hidden = !show;
+    if (show) visible += 1;
+  });
+  const count = document.querySelector('#glossary-count');
+  if (count) count.textContent = visible;
+  const empty = document.querySelector('.glossary-empty');
+  if (empty) empty.hidden = visible !== 0;
+}
 document.addEventListener('click', (event) => {
+  const letterButton = event.target.closest('[data-glossary-letter]');
+  if (letterButton) {
+    glossaryLetter = letterButton.dataset.glossaryLetter;
+    document.querySelectorAll('[data-glossary-letter]').forEach((button) => button.classList.toggle('is-active', button === letterButton));
+    filterGlossary();
+  }
   const sectionLink = event.target.closest('[data-section-target]');
   if (sectionLink) {
     event.preventDefault();

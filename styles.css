@@ -152,6 +152,76 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
+/* Glosario académico: consulta y filtro alfabético adaptable. */
+.glossary-page{max-width:1440px;margin:0 auto}
+.glossary-page .simple-heading{max-width:860px}
+.glossary-tools{display:flex;align-items:center;gap:18px;margin:0 0 18px}
+.glossary-search{display:flex;align-items:center;gap:12px;width:min(100%,620px);min-height:54px;padding:0 16px;border:1px solid var(--line);border-radius:13px;background:#fbf8f3;box-shadow:0 3px 10px #012f630d}
+.glossary-search svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.glossary-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--navy);font-size:15px}
+.glossary-count{margin:0;font-size:14px;color:#45617e}
+.glossary-letters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.glossary-letter{min-width:38px;height:38px;padding:0 10px;border:1px solid var(--line);border-radius:999px;background:#fbf8f3;color:var(--navy);font-weight:600;transition:background .18s,color .18s,transform .18s}
+.glossary-letter:hover{transform:translateY(-2px)}
+.glossary-letter.is-active{background:var(--navy);border-color:var(--navy);color:white}
+.glossary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.glossary-card{position:relative;min-width:0;min-height:142px;padding:20px 20px 18px 26px;border:1px solid var(--line);border-radius:14px;background:#fbf8f3;box-shadow:0 4px 12px #012f630c;transition:transform .2s,box-shadow .2s}
+.glossary-card:hover{transform:translateY(-3px);box-shadow:0 9px 20px #012f631a}
+.glossary-term-letter{position:absolute;left:0;top:20px;bottom:20px;width:4px;border-radius:0 4px 4px 0;background:var(--orange);font-size:0}
+.glossary-card h2{margin:0 0 8px;font-size:17px;line-height:1.35;overflow-wrap:anywhere}
+.glossary-card p{margin:0;font-size:14px;line-height:1.6;color:#244667}
+.glossary-empty{padding:28px;text-align:center;border-radius:12px;background:#e6e8f5}
+@media(max-width:980px){.glossary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.glossary-page{padding-inline:20px}.glossary-tools{align-items:flex-start;flex-direction:column;gap:8px}.glossary-search{min-height:48px}.glossary-letters{gap:6px}.glossary-letter{height:34px;min-width:34px;padding:0 8px;font-size:13px}.glossary-grid{grid-template-columns:1fr;gap:10px}.glossary-card{min-height:0;padding:16px 16px 16px 22px}.glossary-card h2{font-size:16px}.glossary-card p{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.glossary-card,.glossary-letter{transition:none}}
+
+/* Resultados globales: el glosario tiene una presentación propia. */
+.search-result-group{margin-top:30px}
+.search-group-heading{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding:16px 18px;border-radius:14px;background:#e6e8f5}
+.search-group-icon{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:13px;background:var(--purple);color:#fff}
+.search-group-icon .lucide-icon{width:26px;height:26px}
+.search-group-heading>div{min-width:0;flex:1}
+.search-group-kicker{margin:0 0 3px;font-size:12px;font-weight:600;color:#536a82}
+.search-group-heading h2,.search-results-page .results-subheading{margin:0;font-size:21px;line-height:1.25}
+.search-group-heading h2>span,.search-results-page .results-subheading>span{display:inline-grid;place-items:center;min-width:25px;height:25px;padding:0 7px;border-radius:999px;background:#fff;color:var(--navy);font-size:12px;vertical-align:3px}
+.search-group-heading>a{flex:none;font-size:13px;font-weight:600;color:var(--navy)}
+.glossary-results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.glossary-result-card{display:flex;flex-direction:column;min-width:0;padding:18px 20px;border:1px solid rgba(79,95,234,.24);border-left:4px solid var(--purple);border-radius:12px;background:#fbfaff;box-shadow:0 3px 10px #012f630c;transition:transform .2s,box-shadow .2s}
+.glossary-result-card:hover{transform:translateY(-2px);box-shadow:0 8px 18px #012f6317}
+.glossary-result-label{font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:#626fc7}
+.glossary-result-card h3{margin:5px 0 7px;font-size:17px;line-height:1.3}
+.glossary-result-card p{margin:0;color:#334e6c;font-size:13px;line-height:1.5}
+.glossary-result-link{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid rgba(79,95,234,.16);font-size:12px;font-weight:600;color:#4f5fea}
+.glossary-result-link span{font-size:17px}
+.button-ghost-dark{color:var(--navy);background:transparent;border:1px solid var(--line);margin:8px}
+.resource-glossary .resource-arrow{left:34px;right:auto;bottom:24px;display:inline-flex;align-items:center;gap:12px;font-size:15px;font-weight:600}
+.resource-glossary .resource-arrow>span:last-child{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);font-size:20px;transition:transform .18s,background .18s}
+.resource-glossary:hover .resource-arrow>span:last-child{transform:translateX(3px);background:rgba(255,255,255,.3)}
+@media(max-width:760px){
+  .resource-glossary{grid-template-columns:48px minmax(0,1fr) 32px;grid-template-rows:auto auto;column-gap:12px;row-gap:3px;height:auto;min-height:84px;padding:12px 14px}
+  .resource-glossary .resource-icon{grid-column:1;grid-row:1/3;width:48px;height:48px}
+  .resource-glossary strong{grid-column:2;grid-row:1;font-size:14px;align-self:end}
+  .resource-glossary .resource-copy{display:block;grid-column:2;grid-row:2;margin:0;font-size:11px;line-height:1.3;opacity:.92}
+  .resource-glossary .resource-arrow{grid-column:3;grid-row:1/3;position:static;justify-self:end;gap:0}
+  .resource-glossary .resource-arrow-label{display:none}
+  .resource-glossary .resource-arrow>span:last-child{width:30px;height:30px}
+  .search-group-heading{align-items:flex-start;gap:10px;padding:13px}
+  .search-group-icon{width:40px;height:40px}
+  .search-group-heading h2,.search-results-page .results-subheading{font-size:18px}
+  .search-group-heading>a{font-size:11px;max-width:92px;text-align:right}
+  .glossary-results-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.glossary-result-card,.resource-glossary .resource-arrow>span:last-child{transition:none}}
+
+/* En móvil, la tarjeta principal cruza el corte entre el fondo azul y el claro. */
+@media(max-width:760px){
+  .home-resources{background:linear-gradient(var(--navy) 0 108px,var(--paper) 108px)}
+  .resource-explore{background:linear-gradient(120deg,var(--navy),#013d82);color:var(--paper);border:2px solid var(--paper);box-shadow:0 10px 24px rgba(1,25,55,.3)}
+  .resource-explore .resource-icon{background:var(--orange);color:#fff}
+  .resource-explore .resource-copy,.resource-explore .resource-arrow{color:var(--paper)}
+  .resource-explore .resource-arrow{font-weight:700}
+}
+
 /* Lucide icons are kept local so they inherit the design color and work offline. */
 .lucide-icon{display:inline-block;flex:none;width:1.5em;height:1.5em;background-color:currentColor;-webkit-mask-image:var(--lucide-icon);mask-image:var(--lucide-icon);-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain}
 .tutorial-swatch{color:#fff}

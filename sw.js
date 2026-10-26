@@ -1,6 +1,6 @@
-const CACHE_NAME = 'grafika-contenido-v11';
+const CACHE_NAME = 'grafika-contenido-v15';
 const CORE_FILES = [
-  './', './index.html', './styles.css', './app.js', './content/catalog.json',
+  './', './index.html', './styles.css', './app.js', './content/catalog.json', './content/glossary.json',
   './content/articles/fundamentos-adobe-illustrator.md',
   './content/articles/aspectos-basicos-illustrator.md',
   './content/articles/fundamentos-identidad-visual.md',

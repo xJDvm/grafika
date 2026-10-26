@@ -1,0 +1,165 @@
+{
+  "title": "Glosario académico",
+  "terms": [
+    {
+      "term": "Adobe Creative Cloud (Adobe CC)",
+      "definition": "Conjunto de aplicaciones estándar en la industria del diseño (Photoshop, Illustrator, InDesign, Premiere, etc.) basadas en suscripción."
+    },
+    {
+      "term": "Alineación",
+      "definition": "La disposición de los elementos de diseño (texto, imágenes) en relación con una línea o margen (izquierda, derecha, centro o justificado) para crear orden y armonía."
+    },
+    {
+      "term": "Alta Resolución (Hi-Res)",
+      "definition": "Imágenes con una densidad alta de píxeles (generalmente 300 DPI o más), esenciales para una impresión de calidad."
+    },
+    {
+      "term": "Análogo (Colores análogos)",
+      "definition": "Colores que están ubicados uno al lado del otro en el círculo cromático (por ejemplo, azul, verde azulado y verde)."
+    },
+    {
+      "term": "Bezier (Curvas de Bézier)",
+      "definition": "Curvas matemáticas utilizadas en programas vectoriales (como Illustrator) para trazar formas precisas mediante puntos de anclaje y manejadores."
+    },
+    {
+      "term": "Bleeding (Rebase o Sangrado)",
+      "definition": "Área adicional alrededor del diseño que se extiende más allá del borde de corte final, utilizada para evitar bordes blancos al imprimir."
+    },
+    {
+      "term": "Branding",
+      "definition": "El proceso de construir y gestionar la identidad de una marca, incluyendo sus valores, personalidad y elementos visuales."
+    },
+    {
+      "term": "Brief (o Briefing)",
+      "definition": "Documento inicial proporcionado por el cliente o creado por el diseñador que detalla los objetivos, el público objetivo, el presupuesto y los requisitos de un proyecto."
+    },
+    {
+      "term": "CMYK",
+      "definition": "Modelo de color sustractivo utilizado para la impresión (Cian, Magenta, Amarillo y Negro/Key)."
+    },
+    {
+      "term": "Círculo cromático",
+      "definition": "Representación circular de los colores basada en el modelo RYB o RGB, fundamental para entender la armonía y el contraste del color."
+    },
+    {
+      "term": "Contraste",
+      "definition": "La diferencia de luminosidad, color o forma entre elementos para destacar información importante y guiar la vista del espectador."
+    },
+    {
+      "term": "Corte (Crop)",
+      "definition": "Acción de recortar una imagen para eliminar áreas no deseadas o ajustar su composición."
+    },
+    {
+      "term": "Densidad de píxeles (PPI/DPI)",
+      "definition": "Píxeles por pulgada (en pantallas) o puntos por pulgada (en impresión). Mide la nitidez de una imagen."
+    },
+    {
+      "term": "Diseño Editorial",
+      "definition": "Rama del diseño gráfico enfocada en el maquetado y diseño de publicaciones impresas o digitales como libros, revistas y periódicos."
+    },
+    {
+      "term": "Espacio Negativo (Espacio en blanco)",
+      "definition": "El área vacía que rodea o se encuentra entre los elementos de un diseño; es crucial para dar \"aire\" y legibilidad."
+    },
+    {
+      "term": "Escala",
+      "definition": "El tamaño relativo de un elemento en comparación con otros, utilizado para crear jerarquía visual y sensación de profundidad."
+    },
+    {
+      "term": "Esquema de color",
+      "definition": "La selección de colores utilizada en una pieza de diseño para transmitir una emoción o identidad específica (monocromático, complementario, etc.)."
+    },
+    {
+      "term": "Fondo (Background)",
+      "definition": "La capa más alejada visualmente en una composición, sobre la cual se disponen los elementos principales (primer plano)."
+    },
+    {
+      "term": "Formato vectorial",
+      "definition": "Gráficos basados en fórmulas matemáticas (puntos y líneas) que no pierden calidad al ser escalados. Los formatos más comunes son .ai, .svg y .eps."
+    },
+    {
+      "term": "Gamut (Gama de colores)",
+      "definition": "El rango total de colores que un dispositivo (pantalla, impresora) es capaz de reproducir."
+    },
+    {
+      "term": "Grilla (Cuadrícula o Grid)",
+      "definition": "Sistema de líneas invisibles que ayuda a estructurar, alinear y organizar los elementos en una página o pantalla de manera coherente."
+    },
+    {
+      "term": "Hexadecimal (Código Hex)",
+      "definition": "Código de seis caracteres (letras y números) utilizado en diseño web para definir colores exactos (por ejemplo, #FFFFFF para el blanco)."
+    },
+    {
+      "term": "Iconografía",
+      "definition": "El conjunto de íconos o símbolos visuales utilizados en una interfaz o marca para comunicar conceptos de forma rápida y universal."
+    },
+    {
+      "term": "Isotipo / Imagotipo / Isologo",
+      "definition": "Variaciones dentro de un sistema de identidad visual (el isotipo es solo el símbolo; el imagotipo combina símbolo y texto separados; el isologo los integra en un solo bloque)."
+    },
+    {
+      "term": "Jerarquía visual",
+      "definition": "El orden de importancia en el que el ojo humano percibe los elementos de un diseño, guiado por el tamaño, color, contraste y posición."
+    },
+    {
+      "term": "Kerning (Ajuste de espacio)",
+      "definition": "El espacio personalizado entre dos letras específicas para que la lectura sea visualmente equilibrada."
+    },
+    {
+      "term": "Leading (Interlineado)",
+      "definition": "La distancia vertical entre las líneas de texto."
+    },
+    {
+      "term": "Legibilidad",
+      "definition": "Qué tan fácil o difícil es distinguir una letra o palabra de otra en un bloque de texto."
+    },
+    {
+      "term": "Mockup",
+      "definition": "Una maqueta digital o representación visual realista de cómo se verá un diseño aplicado en el mundo real (por ejemplo, impreso en una taza, una camiseta o en la pantalla de un celular)."
+    },
+    {
+      "term": "Moodboard (Tablero de inspiración)",
+      "definition": "Collage visual compuesto por imágenes, texturas, colores y tipografías que define la dirección estética de un proyecto."
+    },
+    {
+      "term": "Paleta de colores",
+      "definition": "Conjunto limitado de colores seleccionados para un proyecto gráfico específico."
+    },
+    {
+      "term": "Pantone (PMS)",
+      "definition": "Sistema de igualación de colores estandarizado utilizado en la industria gráfica para asegurar que el color impreso sea exactamente el mismo sin importar la imprenta."
+    },
+    {
+      "term": "Píxel",
+      "definition": "La unidad mínima de una imagen digital en formato ráster (mapa de bits)."
+    },
+    {
+      "term": "Ráster (Mapa de bits)",
+      "definition": "Imágenes formadas por una cuadrícula de píxeles (como las fotos en .jpg o .png). Pierden calidad al ampliarse."
+    },
+    {
+      "term": "Retícula",
+      "definition": "Sinónimo de grilla; estructura de guía para la maquetación."
+    },
+    {
+      "term": "Saturación",
+      "definition": "La pureza o intensidad de un color; un color muy saturado es vivo, mientras que uno desaturado tiende al gris."
+    },
+    {
+      "term": "Sketchup / Wireframe",
+      "definition": "Bocetos o esquemas estructurales básicos (generalmente en blanco y negro) para planificar la distribución de elementos en una página web o interfaz."
+    },
+    {
+      "term": "Tracking (Espaciado general)",
+      "definition": "La separación uniforme entre todas las letras de una palabra o bloque de texto de forma global (a diferencia del kerning, que es entre dos letras específicas)."
+    },
+    {
+      "term": "Tipografía",
+      "definition": "El arte, técnica y estilo de diseñar y organizar tipos (letras) para hacer el lenguaje escrito legible y atractivo."
+    },
+    {
+      "term": "Vector",
+      "definition": "Gráfico escalable basado en vectores (ver Formato vectorial)."
+    }
+  ]
+}
