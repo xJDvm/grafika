@@ -1,4 +1,4 @@
-const CACHE_NAME = 'grafika-contenido-v22';
+const CACHE_NAME = 'grafika-contenido-v23';
 const CORE_FILES = [
   './', './index.html', './styles.css', './app.js', './content/catalog.json', './content/glossary.json',
   './content/articles/fundamentos-adobe-illustrator.md',
@@ -11,7 +11,8 @@ const CORE_FILES = [
   './assets/icons/target.svg', './assets/icons/circle-help.svg', './assets/icons/circle-play.svg',
   './assets/icons/arrow-right.svg', './assets/icons/arrow-left.svg', './assets/icons/arrow-up-right.svg',
   './assets/icons/chevron-down.svg', './assets/icons/chevron-left.svg', './assets/icons/chevron-right.svg',
-  './assets/icons/plus.svg', './assets/icons/x.svg', './assets/icons/rotate-cw.svg', './assets/icons/sparkles.svg',
+  './assets/icons/plus.svg', './assets/icons/x.svg', './assets/icons/rotate-cw.svg', './assets/icons/sparkles.svg', './assets/icons/mail.svg', './assets/icons/link.svg', './assets/icons/compass.svg',
+  './assets/brand/icon-192.png', './apple-touch-icon.png',
 ];
 
 self.addEventListener('install', (event) => {

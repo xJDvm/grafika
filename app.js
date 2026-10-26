@@ -157,7 +157,8 @@ function renderInfo() {
   ];
   return `<section class="page page-info" aria-labelledby="info-title">
     <div class="hero info-hero"><div class="hero-copy"><p class="hero-kicker" id="info-title">¿Qué es</p><h1 class="hero-wordmark">GRAF!KA<span>?</span></h1><p class="hero-description">Una plataforma web académica creada para orientar y acompañar a los estudiantes de Artes Mención Diseño Gráfico de la Universidad Arturo Michelena.</p></div>${artBlock('info')}</div>
-    <section class="purpose-section"><div class="purpose-intro"><h2>Nuestro propósito</h2><p>Brindar un espacio accesible, organizado y amigable que conecte a los estudiantes con la información de su carrera.</p></div><div class="purpose-callout"><span class="target-icon" aria-hidden="true">${categoryIcon('target')}</span><p>Más que información, es una guía para tu trayectoria en la carrera.</p></div><div class="value-grid">${values.map(([icon, title, body]) => `<article class="value-card"><span class="value-icon value-${icon}" aria-hidden="true">${categoryIcon(icon)}</span><div class="value-text"><strong class="value-title">${title}</strong><strong class="value-body">${body}</strong></div></article>`).join('')}</div></section>
+    ${renderInfoJump()}
+    <section class="purpose-section"><div class="purpose-intro"><h2 id="purpose-title">Nuestro propósito</h2><p>Brindar un espacio accesible, organizado y amigable que conecte a los estudiantes con la información de su carrera.</p></div><div class="purpose-callout"><span class="target-icon" aria-hidden="true">${categoryIcon('target')}</span><p>Más que información, es una guía para tu trayectoria en la carrera.</p></div><div class="value-grid">${values.map(([icon, title, body]) => `<article class="value-card"><span class="value-icon value-${icon}" aria-hidden="true">${categoryIcon(icon)}</span><div class="value-text"><strong class="value-title">${title}</strong><strong class="value-body">${body}</strong></div></article>`).join('')}</div></section>
     ${renderSupportContent()}
   </section>`;
 }
@@ -202,6 +203,10 @@ function videoTutorialCard(video) {
   return `<article class="video-tutorial-card"><div class="video-thumbnail"><img src="https://img.youtube.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg" alt="Miniatura de ${escapeHTML(video.title)}" loading="lazy"></div><div class="video-tutorial-details"><p class="video-category-label">${escapeHTML(video.category)}</p><h3>${escapeHTML(video.title)}</h3><div class="video-tutorial-actions"><a class="button button-primary" href="${escapeHTML(video.url)}" target="_blank" rel="noopener noreferrer">Ver en YouTube ${ui('arrow-up-right')}</a><button class="button button-copy" type="button" data-copy-link="${escapeHTML(video.url)}" aria-live="polite">Copiar enlace</button></div></div></article>`;
 }
 
+function guideArt() {
+  return `<div class="guide-art" aria-hidden="true"><span class="ga-sun"><i></i></span><span class="ga-purple"><i></i><b></b></span><span class="ga-sky"><i></i></span></div>`;
+}
+
 function renderCategory(categoryId) {
   const category = categoryById(categoryId);
   if (!category) return renderNotFound();
@@ -209,7 +214,10 @@ function renderCategory(categoryId) {
   const content = articles.length
     ? `<div class="article-card-grid">${articles.map((article) => `<a class="article-card" href="#articulo/${encodeURIComponent(article.slug)}"><span class="article-label">${escapeHTML(article.label)}</span><h2>${escapeHTML(article.title)}</h2><p>${escapeHTML(article.summary)}</p><span class="article-meta">Abrir clase ${ui('arrow-right')}</span></a>`).join('')}</div>`
     : `<div class="empty-state"><span class="empty-mark" aria-hidden="true">${ui('sparkles')}</span><h2>Material pendiente</h2><p>Aún no hay contenido cargado para la clase de ${escapeHTML(category.title)}.</p><a class="button button-primary" href="#clases">Volver a las clases</a></div>`;
-  return `<section class="page simple-page"><div class="simple-heading"><a class="back-link" href="#clases">${ui('arrow-left')}Volver a clases</a><p class="article-label">Clase</p><h1>${escapeHTML(category.title)}</h1>${category.subtitle ? `<p>${escapeHTML(category.subtitle)}</p>` : ''}</div>${content}</section>`;
+  return `<section class="page category-page" aria-labelledby="category-title">
+    <header class="guide-hero category-hero">${guideArt()}<div class="guide-hero-copy"><a class="back-link" href="#clases">${ui('arrow-left')}Volver a clases</a><span class="article-label">Clase</span><h1 id="category-title">${escapeHTML(category.title)}</h1>${category.subtitle ? `<p class="article-subtitle">${escapeHTML(category.subtitle)}</p>` : ''}</div></header>
+    <div class="category-body">${content}</div>
+  </section>`;
 }
 
 async function loadArticle(article) {
@@ -227,19 +235,39 @@ async function renderArticle(slug) {
   if (!article) return renderNotFound();
   let markdown;
   try { markdown = await loadArticle(article); }
-  catch { return `<section class="page simple-page"><div class="empty-state"><h1>No pudimos abrir esta guía</h1><p>Comprueba tu conexión y vuelve a intentarlo.</p><button class="button button-primary" data-retry-article="${escapeHTML(slug)}">Reintentar</button></div></section>`; }
+  catch { return renderError('No pudimos abrir esta guía', 'Comprueba tu conexión y vuelve a intentarlo.', `data-retry-article="${escapeHTML(slug)}"`); }
   const rendered = markdownToHTML(markdown);
   const category = categoryById(article.category);
+  const categoryHref = `#categoria/${encodeURIComponent(article.category)}`;
   const toc = rendered.headings.map((heading) => `<li class="toc-level-${heading.level}"><a href="#${escapeHTML(heading.id)}" data-section-target="${escapeHTML(heading.id)}">${escapeHTML(heading.title)}</a></li>`).join('');
   const related = articlesFor(article.category).filter((item) => item.slug !== article.slug);
-  return `<section class="page article-page" aria-labelledby="article-title">
-    <div class="article-heading"><div class="article-heading-top"><a class="back-link" href="#categoria/${encodeURIComponent(article.category)}">${ui('arrow-left')}Volver a ${escapeHTML(category?.title || 'tutoriales')}</a><span class="article-label">${escapeHTML(article.label)}</span></div><h1 id="article-title">${escapeHTML(article.title)}</h1><p class="article-subtitle">${escapeHTML(article.subtitle)}</p><p class="article-summary">${escapeHTML(article.summary)}</p><div class="article-meta"><span>${escapeHTML(article.source || `Material de referencia · páginas ${article.sourcePages}`)}</span></div></div>
-    <div class="article-layout">
-      <aside class="article-sidebar article-toc"><a class="back-link toc-back" href="#categoria/${encodeURIComponent(article.category)}">${ui('arrow-left')}Volver a ${escapeHTML(category?.title || 'la clase')}</a><h2>Contenido</h2><details class="toc-disclosure" open><summary>Contenido de la guía</summary><ol class="toc-list">${toc}</ol></details></aside>
-      <article class="article-content">${rendered.html}${article.sourceNote ? `<p class="source-note">${escapeHTML(article.sourceNote)}</p>` : ''}</article>
-      <aside class="article-sidebar related-sidebar"><h2>Temas relacionados</h2>${related.map((item) => `<a class="related-link" href="#articulo/${encodeURIComponent(item.slug)}"><span>${escapeHTML(item.title)}</span>${ui('arrow-right')}</a>`).join('') || '<p>Explora más temas y guías desde Clases.</p>'}<a class="related-more" href="#clases">Navega por todas las clases ${ui('arrow-right')}</a></aside>
+  const relatedLinks = related.map((item) => `<a class="related-link" href="#articulo/${encodeURIComponent(item.slug)}"><span class="related-dot" aria-hidden="true"></span><span>${escapeHTML(item.title)}</span>${ui('arrow-right')}</a>`).join('') || '<p class="related-empty">Explora más temas y guías desde Clases.</p>';
+  return `<section class="page guide" aria-labelledby="article-title">
+    <aside class="guide-nav" aria-label="Contenido de la guía">
+      <a class="back-link toc-back" href="${categoryHref}">${ui('arrow-left')}Volver</a>
+      <a class="guide-class" href="${categoryHref}"><span class="guide-class-icon" aria-hidden="true">${categoryIcon(article.category)}</span><span>${escapeHTML(category?.title || 'Clase')}</span></a>
+      <details class="toc-disclosure" open><summary>Contenido de la guía</summary><ol class="toc-list">${toc}</ol></details>
+      <span class="guide-nav-deco" aria-hidden="true"></span>
+    </aside>
+    <div class="guide-main">
+      <header class="guide-hero">${guideArt()}<div class="guide-hero-copy"><span class="article-label">${escapeHTML(article.label)}</span><h1 id="article-title">${escapeHTML(article.title)}</h1><p class="article-subtitle">${escapeHTML(article.subtitle)}</p><p class="article-summary">${escapeHTML(article.summary)}</p><p class="guide-meta">${escapeHTML(article.source || `Material de referencia · páginas ${article.sourcePages}`)}</p></div></header>
+      <div class="guide-body">
+        <article class="article-content">${rendered.html}${article.sourceNote ? `<p class="source-note">${escapeHTML(article.sourceNote)}</p>` : ''}</article>
+        <aside class="guide-related" aria-label="Más contenido">
+          <section class="related-card"><h2>${ui('link')}Temas relacionados</h2>${relatedLinks}</section>
+          <section class="related-card"><h2>${ui('compass')}Navega también</h2>
+            <a class="related-link" href="#clases"><span class="related-dot" aria-hidden="true"></span><span>Todas las clases</span>${ui('arrow-right')}</a>
+            <a class="related-link" href="#glosario"><span class="related-dot" aria-hidden="true"></span><span>Glosario académico</span>${ui('arrow-right')}</a>
+            <a class="related-link" href="#tutoriales"><span class="related-dot" aria-hidden="true"></span><span>Tutoriales en video</span>${ui('arrow-right')}</a>
+          </section>
+        </aside>
+      </div>
     </div>
   </section>`;
+}
+
+function renderInfoJump() {
+  return `<nav class="info-jump" aria-label="Secciones de esta página"><a href="#info" data-section-target="purpose-title">${ui('target')}Propósito</a><a href="#info" data-section-target="start-title">${ui('compass')}Cómo empezar</a><a href="#info" data-section-target="faq-title">${ui('circle-help')}Preguntas</a><a href="#info" data-section-target="contact-title">${ui('message-circle')}Contacto</a></nav>`;
 }
 
 function renderSupportContent() {
@@ -249,12 +277,26 @@ function renderSupportContent() {
     ['¿Hay contenidos para estudiantes que están comenzando la carrera?', 'Sí. Las guías están organizadas por temas y puedes comenzar por los fundamentos de Adobe Illustrator.'],
     ['¿Qué hago si no encuentro un tema o recurso?', 'Escríbenos y cuéntanos qué información necesitas para que podamos orientarte.']
   ];
-  return `<section class="support-content info-support-content" aria-label="Ayuda y contacto"><section class="support-group faq-group" aria-labelledby="faq-title"><h2 id="faq-title">Preguntas frecuentes</h2><div class="faq-list">${questions.map(([q,a]) => `<details class="faq-item"><summary>${escapeHTML(q)}<span class="faq-mark" aria-hidden="true">${ui('plus')}</span></summary><div class="faq-panel"><p>${escapeHTML(a)}</p></div></details>`).join('')}</div></section>
-    <aside class="support-group contact-group" aria-labelledby="contact-title"><h2 id="contact-title">Contacto y redes</h2>
-      <div class="contact-prompt"><h3>¿No encuentras lo que buscas?</h3><p>Escríbenos y te ayudaremos a encontrar la información que necesitas.</p><a class="button button-primary" href="mailto:grafikauam@gmail.com?subject=Consulta%20sobre%20Grafika">Escribir un correo</a></div>
-      <div class="contact-card"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><div class="contact-detail"><strong>Correo</strong><a href="mailto:grafikauam@gmail.com">grafikauam@gmail.com</a></div></div>
-      <div class="contact-card"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span><div class="contact-detail"><strong>Redes sociales</strong><div class="social-links" aria-label="Redes sociales"><a class="social instagram" href="#info" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a><a class="social facebook" href="#info" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.5v-8h2.7l.5-3.3h-3.2V8.1c0-.95.4-1.7 1.8-1.7h1.5V3.5c-.3 0-1.2-.2-2.3-.2-2.6 0-4.3 1.6-4.3 4.4v2.5H7.5v3.3h2.7v8z"/></svg></a><a class="social tiktok" href="#info" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><path id="tt" d="M16.6 3.2h-3.1v11.9a2.5 2.5 0 1 1-2.5-2.5c.3 0 .6 0 .8.1V9.5a5.7 5.7 0 1 0 4.8 5.6V9.2a7.5 7.5 0 0 0 4.2 1.3V7.4a4.4 4.4 0 0 1-4.2-4.2z"/></defs><use href="#tt" x="-.7" y="-.5" fill="#25f4ee"/><use href="#tt" x=".7" y=".5" fill="#fe2c55"/><use href="#tt" fill="#fff"/></svg></a></div></div></div>
-    </aside></section>`;
+  const steps = [
+    ['1', 'Explora las clases', 'Abre una clase y recorre sus guías paso a paso.', '#clases', 'purple'],
+    ['2', 'Consulta el glosario', 'Resuelve dudas de conceptos con definiciones claras.', '#glosario', 'orange'],
+    ['3', 'Mira los tutoriales', 'Refuerza lo aprendido con videos prácticos.', '#tutoriales', 'blue']
+  ];
+  const socials = [
+    ['instagram', 'Instagram', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>'],
+    ['facebook', 'Facebook', '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.5v-8h2.7l.5-3.3h-3.2V8.1c0-.95.4-1.7 1.8-1.7h1.5V3.5c-.3 0-1.2-.2-2.3-.2-2.6 0-4.3 1.6-4.3 4.4v2.5H7.5v3.3h2.7v8z"/></svg>'],
+    ['tiktok', 'TikTok', '<svg viewBox="0 0 24 24" aria-hidden="true"><defs><path id="tt" d="M16.6 3.2h-3.1v11.9a2.5 2.5 0 1 1-2.5-2.5c.3 0 .6 0 .8.1V9.5a5.7 5.7 0 1 0 4.8 5.6V9.2a7.5 7.5 0 0 0 4.2 1.3V7.4a4.4 4.4 0 0 1-4.2-4.2z"/></defs><use href="#tt" x="-.7" y="-.5" fill="#25f4ee"/><use href="#tt" x=".7" y=".5" fill="#fe2c55"/><use href="#tt" fill="#fff"/></svg>']
+  ];
+  return `<section class="start-section" aria-labelledby="start-title"><h2 id="start-title">Empieza en tres pasos</h2><div class="start-grid">${steps.map(([n, title, body, href, color]) => `<a class="start-card start-${color}" href="${href}"><span class="start-number" aria-hidden="true">${n}</span><span class="start-text"><strong>${title}</strong><span>${body}</span></span>${ui('arrow-right')}</a>`).join('')}</div></section>
+  <section class="help-grid" aria-label="Ayuda y contacto">
+    <div class="help-faq" aria-labelledby="faq-title"><h2 id="faq-title">Preguntas frecuentes</h2><div class="faq-list">${questions.map(([q, a], index) => `<details class="faq-item"${index === 0 ? ' open' : ''}><summary>${escapeHTML(q)}<span class="faq-mark" aria-hidden="true">${ui('plus')}</span></summary><div class="faq-panel"><p>${escapeHTML(a)}</p></div></details>`).join('')}</div></div>
+    <aside class="help-contact" aria-labelledby="contact-title"><h2 id="contact-title">Contacto y redes</h2>
+      <div class="contact-panel"><span class="contact-panel-icon" aria-hidden="true">${ui('message-circle')}</span><h3>¿No encuentras lo que buscas?</h3><p>Escríbenos y te ayudaremos a encontrar la información que necesitas.</p><a class="button button-cta" href="mailto:grafikauam@gmail.com?subject=Consulta%20sobre%20Grafika">${ui('mail')}Escribir un correo</a><a class="contact-mail" href="mailto:grafikauam@gmail.com">grafikauam@gmail.com</a>
+        <div class="contact-divider" role="presentation"></div><p class="contact-social-title">Síguenos en redes</p>
+        <div class="social-links" aria-label="Redes sociales">${socials.map(([id, name, svg]) => `<a class="social-link" href="#info" aria-label="${name}"><span class="social ${id}">${svg}</span><span>${name}</span></a>`).join('')}</div>
+      </div>
+    </aside>
+  </section>`;
 }
 
 function normalizeSearch(value) {
@@ -332,12 +374,22 @@ function renderSearch(query) {
     ${!terms.length && !videos.length && !articles.length && !categories.length ? `<div class="empty-state"><h2>No encontramos resultados</h2><p>Prueba con otro término o explora el glosario y las clases.</p><div class="empty-actions"><a class="button button-primary" href="#glosario">Abrir glosario</a><a class="button button-ghost-dark" href="#clases">Ver clases</a></div></div>` : ''}</section>`;
 }
 
+function errorArt() {
+  return `<div class="error-strip" aria-hidden="true"><span class="es-ring"></span><i class="es-t1"></i><i class="es-t2"></i><i class="es-t3"></i><i class="es-t4"></i><i class="es-t5"></i><i class="es-t6"></i></div>`;
+}
+
+function renderError(title = 'Ocurrió un problema', body = 'Estamos teniendo problemas para cargar el contenido. Por favor, inténtalo de nuevo en unos minutos.', retryAttr = 'data-retry') {
+  const illustration = `<svg class="error-illus" viewBox="0 0 120 100" aria-hidden="true"><rect x="10" y="8" width="100" height="84" rx="18" fill="#d4e3ea"/><path d="M10 26a18 18 0 0 1 18-18h32v30H10z" fill="#b7d6e7"/><path d="M60 8h32a18 18 0 0 1 18 18v12H60z" fill="#7bb8dc"/><circle cx="29" cy="23" r="4" fill="#df0751"/><circle cx="43" cy="23" r="4" fill="#4f5fea"/><circle cx="57" cy="23" r="4" fill="#00b050"/><rect x="38" y="52" width="6" height="14" rx="3" fill="#012f63"/><rect x="76" y="52" width="6" height="14" rx="3" fill="#012f63"/><path d="M50 78q10-9 20 0" fill="none" stroke="#012f63" stroke-width="5" stroke-linecap="round"/></svg>`;
+  return `<section class="page error-page"><div class="error-copy">${illustration}<h1>${title}</h1><p>${body}</p><div class="error-actions"><button class="button button-primary" type="button" ${retryAttr}>Reintentar ${ui('rotate-cw')}</button><a class="button button-ghost-dark" href="#inicio">Volver al inicio</a></div></div>${errorArt()}</section>`;
+}
+
 function renderNotFound() {
-  return `<section class="page error-page"><div class="error-copy"><p class="error-code">404</p><h1>Página no encontrada</h1><p>La página que buscas no existe o fue movida a otro lugar.</p><a class="button button-primary" href="#inicio">Volver al inicio ${ui('arrow-right')}</a></div>${artBlock('info')}</section>`;
+  return `<section class="page error-page"><div class="error-copy"><p class="error-code" aria-label="Error 404">4<span class="error-zero" aria-hidden="true"></span>4</p><h1>Página no encontrada</h1><p>La página que buscas no existe o fue movida a otro lugar.</p><div class="error-actions"><a class="button button-primary" href="#inicio">Volver al inicio ${ui('arrow-right')}</a><a class="button button-ghost-dark" href="#clases">Ver clases</a></div></div>${errorArt()}</section>`;
 }
 
 function renderOffline() {
-  return `<section class="page error-page offline-page"><div class="error-copy"><p class="error-code">Sin conexión</p><h1>No hay conexión a internet</h1><p>Revisa tu conexión. Las páginas y guías guardadas en este dispositivo volverán a estar disponibles al cargar de nuevo.</p><button class="button button-primary" type="button" data-retry-online>Reintentar ${ui('rotate-cw')}</button></div>${artBlock('info')}</section>`;
+  const illustration = `<svg class="error-illus error-illus-wifi" viewBox="0 0 120 100" aria-hidden="true"><g fill="none" stroke="#012f63" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 42a64 64 0 0 1 92 0"/><path d="M30 58a40 40 0 0 1 60 0"/><path d="M46 73a17 17 0 0 1 28 0"/><path d="M20 10l80 82"/></g><circle cx="60" cy="87" r="6" fill="#012f63"/><g stroke-width="5" stroke-linecap="round"><path d="M98 14l-3 8" stroke="#85cba4"/><path d="M110 24l-8 5" stroke="#4285f4"/><path d="M114 40l-8 0" stroke="#fc742a"/></g></svg>`;
+  return `<section class="page error-page offline-page"><div class="error-copy">${illustration}<h1>Sin conexión a internet</h1><p>Parece que no tienes conexión. Revisa tu red e inténtalo de nuevo; las guías guardadas en este dispositivo volverán a estar disponibles.</p><div class="error-actions"><button class="button button-primary" type="button" data-retry-online>Reintentar ${ui('rotate-cw')}</button></div></div>${errorArt()}</section>`;
 }
 
 function routeFromHash() {
@@ -364,6 +416,29 @@ function setActiveNav(route) {
   });
 }
 
+const guideDesktop = window.matchMedia('(min-width: 1000px)');
+guideDesktop.addEventListener('change', (event) => {
+  const disclosure = document.querySelector('.guide-nav .toc-disclosure');
+  if (disclosure) disclosure.open = event.matches;
+});
+let guideObserver = null;
+function setupGuide() {
+  guideObserver?.disconnect();
+  guideObserver = null;
+  const disclosure = document.querySelector('.guide-nav .toc-disclosure');
+  if (disclosure) disclosure.open = guideDesktop.matches;
+  const links = [...document.querySelectorAll('.guide-nav [data-section-target]')];
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  const byId = new Map(links.map((link) => [link.dataset.sectionTarget, link]));
+  guideObserver = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+    if (!visible) return;
+    links.forEach((link) => link.removeAttribute('aria-current'));
+    byId.get(visible.target.id)?.setAttribute('aria-current', 'true');
+  }, { rootMargin: '0px 0px -70% 0px' });
+  byId.forEach((_, id) => { const heading = document.getElementById(id); if (heading) guideObserver.observe(heading); });
+}
+
 async function renderRoute() {
   if (!navigator.onLine && !articleCache.size && !catalog.articles.length) {
     app.innerHTML = renderOffline();
@@ -386,12 +461,12 @@ async function renderRoute() {
       filterGlossary();
     }
     else if (route === 'categoria') app.innerHTML = renderCategory(argument);
-    else if (route === 'articulo') app.innerHTML = await renderArticle(argument);
+    else if (route === 'articulo') { app.innerHTML = await renderArticle(argument); setupGuide(); }
     else if (route === 'buscar') app.innerHTML = renderSearch(argument);
     else if (route === 'offline') app.innerHTML = renderOffline();
     else app.innerHTML = renderNotFound();
   } catch {
-    app.innerHTML = `<section class="page simple-page"><div class="empty-state"><h1>No pudimos cargar el contenido</h1><p>Vuelve a intentarlo en unos segundos.</p><button class="button button-primary" data-retry>Reintentar</button></div></section>`;
+    app.innerHTML = renderError();
   }
   app.setAttribute('aria-busy', 'false');
   if (route !== 'buscar') window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -407,7 +482,7 @@ async function start() {
     glossary = await glossaryResponse.json();
   } catch {
     app.innerHTML = navigator.onLine
-      ? `<section class="page simple-page"><div class="empty-state"><h1>Grafika no pudo cargar el catálogo</h1><p>Comprueba la conexión y vuelve a intentarlo.</p><button class="button button-primary" data-retry>Reintentar</button></div></section>`
+      ? renderError('Grafika no pudo cargar el catálogo', 'Comprueba la conexión y vuelve a intentarlo.')
       : renderOffline();
     app.setAttribute('aria-busy', 'false');
     return;
