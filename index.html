@@ -6,20 +6,22 @@
     <meta name="theme-color" content="#f4f3ee" />
     <meta name="description" content="Grafika: orientación académica y recursos para estudiantes de Diseño Gráfico." />
     <title>Grafika — Recursos de Diseño Gráfico</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23012f63'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23f65f4a'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%234f5fea'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=25" />
-    <script src="app.js?v=19" defer></script>
+    <link rel="stylesheet" href="styles.css?v=31" />
+    <script src="app.js?v=21" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
     <header class="site-header">
       <a class="brand" href="#inicio" aria-label="Grafika, ir al inicio"><span>GRAF!KA</span></a>
       <button class="icon-button search-toggle" type="button" aria-label="Buscar en Grafika" title="Buscar">
         <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="13.5" cy="13.5" r="9"/><path d="m20.5 20.5 7 7"/></svg>
       </button>
       <span class="nav-separator" aria-hidden="true"></span>
-      <button class="nav-scroll-control nav-scroll-left" type="button" data-nav-scroll="left" aria-label="Desplazar navegación hacia la izquierda" hidden>‹</button>
+      <button class="nav-scroll-control nav-scroll-left" type="button" data-nav-scroll="left" aria-label="Desplazar navegación hacia la izquierda" hidden><span class="lucide-icon ui-icon" style="--lucide-icon:url('assets/icons/chevron-left.svg')" aria-hidden="true"></span></button>
       <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
         <a class="nav-link" href="#inicio" data-nav="inicio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg>Inicio</a>
         <a class="nav-link" href="#tutoriales" data-nav="tutoriales"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>Tutoriales</a>
@@ -27,7 +29,7 @@
         <a class="nav-link" href="#glosario" data-nav="glosario"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h8"/></svg>Glosario</a>
         <a class="nav-link" href="#info" data-nav="info"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>Info</a>
       </nav>
-      <button class="nav-scroll-control nav-scroll-right" type="button" data-nav-scroll="right" aria-label="Desplazar navegación hacia la derecha" hidden>›</button>
+      <button class="nav-scroll-control nav-scroll-right" type="button" data-nav-scroll="right" aria-label="Desplazar navegación hacia la derecha" hidden><span class="lucide-icon ui-icon" style="--lucide-icon:url('assets/icons/chevron-right.svg')" aria-hidden="true"></span></button>
     </header>
 
     <main id="main-content" tabindex="-1"><div id="app" aria-live="polite" aria-busy="true"></div></main>
@@ -38,7 +40,7 @@
         <div class="search-row">
           <input id="global-search-input" type="search" placeholder="Escribe una palabra clave…" />
           <button class="button button-primary" type="submit">Buscar</button>
-          <button type="button" class="close-search" aria-label="Cerrar búsqueda">×</button>
+          <button type="button" class="close-search" aria-label="Cerrar búsqueda"><span class="lucide-icon ui-icon" style="--lucide-icon:url('assets/icons/x.svg')" aria-hidden="true"></span></button>
         </div>
       </form>
     </div>
